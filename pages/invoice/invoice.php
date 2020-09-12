@@ -40,11 +40,11 @@
                                                 <th>Total Hour</th>
                                                 <th>Price Hour</th>
                                                 <th>Extended Price</th>
-                                                <th>Terbilang</th>
                                                 <th>Total</th>
                                                 <th>Vat 1%</th>
-                                                <th>Total Invoice Amount</th>
                                                 <th>Diskon</th>
+                                                <th>Total Invoice Amount</th>
+                                                <th>Terbilang</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
@@ -66,11 +66,11 @@
                                                 <td><?= !empty($data['invoice_total_hour']) ? $data['invoice_total_hour'] : '-' ?></td>
                                                 <td><?= !empty($data['invoice_price_hour']) ? $data['invoice_price_hour'] : '-' ?></td>
                                                 <td><?= !empty($data['invoice_total']) ? rupiah($data['invoice_total']) : '-' ?></td>
-                                                <td><?= !empty($data['invoice_calculated']) ? strtoupper($data['invoice_calculated']) : '-' ?></td>
                                                 <td><?= !empty($data['invoice_total']) ? rupiah($data['invoice_total']) : '-' ?></td>
                                                 <td><?= !empty($data['invoice_vat']) ? rupiah($data['invoice_vat']) : '-' ?></td>
-                                                <td><?= !empty($data['invoice_amount']) ? rupiah($data['invoice_amount']) : '-' ?></td>
                                                 <td><?= !empty($data['invoice_discount']) ? rupiah($data['invoice_discount']) : '-' ?></td>
+                                                <td><?= !empty($data['invoice_amount']) ? rupiah($data['invoice_amount']) : '-' ?></td>
+                                                <td><?= !empty($data['invoice_calculated']) ? strtoupper($data['invoice_calculated']) : '-' ?></td>
                                                 <td>
                                                     <a href="?page=invoiceedit1&id=<?= $data[0] ?>" class="btn btn-info btn-sm btn-block"><i class="fa fa-edit"></i> edit</a>
                                                     <a href="<?= $data['invoice_file'] ?>" target="_blank" class="btn btn-success btn-sm btn-block"><i class="fa fa-sticky-note"></i> lihat invoice</a>
@@ -92,10 +92,10 @@
                                                 <th>Tanggal</th>
                                                 <th>Deskripsi</th>
                                                 <th>Price</th>
-                                                <th>Terbilang</th>
                                                 <th>Total</th>
                                                 <th>PPN 10%</th>
                                                 <th>Total Invoice Amount</th>
+                                                <th>Terbilang</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
@@ -115,10 +115,10 @@
                                                 <td><?= !empty($data['invoice_date']) ? date_ind($data['invoice_date']) : '-' ?></td>
                                                 <td><?= description($data[0], $data['product_id']) ?></td>
                                                 <td><?= !empty($data['invoice_total']) ? rupiah($data['invoice_total']) : '-' ?></td>
-                                                <td><?= !empty($data['invoice_calculated']) ? strtoupper($data['invoice_calculated']) : '-' ?></td>
                                                 <td><?= !empty($data['invoice_total']) ? rupiah($data['invoice_total']) : '-' ?></td>
                                                 <td><?= !empty($data['invoice_ppn']) ? rupiah($data['invoice_ppn']) : '-' ?></td>
                                                 <td><?= !empty($data['invoice_amount']) ? rupiah($data['invoice_amount']) : '-' ?></td>
+                                                <td><?= !empty($data['invoice_calculated']) ? strtoupper($data['invoice_calculated']) : '-' ?></td>
                                                 <td>
                                                     <a href="?page=invoiceedit2&id=<?= $data[0] ?>" class="btn btn-info btn-sm btn-block"><i class="fa fa-edit"></i> edit</a>
                                                     <a href="<?= $data['invoice_file'] ?>" target="_blank" class="btn btn-success btn-sm btn-block"><i class="fa fa-sticky-note"></i> lihat invoice</a>
@@ -140,10 +140,10 @@
                                                 <th>Tanggal</th>
                                                 <th>Deskripsi</th>
                                                 <th>Price</th>
-                                                <th>Terbilang</th>
                                                 <th>Total</th>
                                                 <th>VAT 10%</th>
                                                 <th>Total Invoice Amount</th>
+                                                <th>Terbilang</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
@@ -163,10 +163,10 @@
                                                 <td><?= !empty($data['invoice_date']) ? date_ind($data['invoice_date']) : '-' ?></td>
                                                 <td><?= description($data[0], $data['product_id']) ?></td>
                                                 <td><?= !empty($data['invoice_total']) ? rupiah($data['invoice_total']) : '-' ?></td>
-                                                <td><?= !empty($data['invoice_calculated']) ? strtoupper($data['invoice_calculated']) : '-' ?></td>
                                                 <td><?= !empty($data['invoice_total']) ? rupiah($data['invoice_total']) : '-' ?></td>
                                                 <td><?= !empty($data['invoice_vat']) ? rupiah($data['invoice_vat']) : '-' ?></td>
                                                 <td><?= !empty($data['invoice_amount']) ? rupiah($data['invoice_amount']) : '-' ?></td>
+                                                <td><?= !empty($data['invoice_calculated']) ? strtoupper($data['invoice_calculated']) : '-' ?></td>
                                                 <td>
                                                     <a href="?page=invoiceedit3&id=<?= $data[0] ?>" class="btn btn-info btn-sm btn-block"><i class="fa fa-edit"></i> edit</a>
                                                     <a href="<?= $data['invoice_file'] ?>" target="_blank" class="btn btn-success btn-sm btn-block"><i class="fa fa-sticky-note"></i> lihat invoice</a>
@@ -188,12 +188,12 @@
                                                 <th>Tanggal</th>
                                                 <th>Deskripsi</th>
                                                 <th>Price</th>
-                                                <th>Terbilang</th>
                                                 <th>Total</th>
                                                 <th>VAT 10%</th>
                                                 <th>PSC</th>
                                                 <th>IWJR</th>
                                                 <th>Total Invoice Amount</th>
+                                                <th>Terbilang</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
@@ -213,12 +213,12 @@
                                                 <td><?= !empty($data['invoice_date']) ? date_ind($data['invoice_date']) : '-' ?></td>
                                                 <td><?= description($data[0], $data['product_id']) ?></td>
                                                 <td><?= !empty($data['invoice_total']) ? rupiah($data['invoice_total']) : '-' ?></td>
-                                                <td><?= !empty($data['invoice_calculated']) ? strtoupper($data['invoice_calculated']) : '-' ?></td>
                                                 <td><?= !empty($data['invoice_total']) ? rupiah($data['invoice_total']) : '-' ?></td>
                                                 <td><?= !empty($data['invoice_vat']) ? rupiah($data['invoice_vat']) : '-' ?></td>
                                                 <td><?= !empty($data['invoice_psc']) ? rupiah($data['invoice_psc']) : '-' ?></td>
                                                 <td><?= !empty($data['invoice_iwjr']) ? rupiah($data['invoice_iwjr']) : '-' ?></td>
                                                 <td><?= !empty($data['invoice_amount']) ? rupiah($data['invoice_amount']) : '-' ?></td>
+                                                <td><?= !empty($data['invoice_calculated']) ? strtoupper($data['invoice_calculated']) : '-' ?></td>
                                                 <td>
                                                     <a href="?page=invoiceedit4&id=<?= $data[0] ?>" class="btn btn-info btn-sm btn-block"><i class="fa fa-edit"></i> edit</a>
                                                     <a href="<?= $data['invoice_file'] ?>" target="_blank" class="btn btn-success btn-sm btn-block"><i class="fa fa-sticky-note"></i> lihat invoice</a>

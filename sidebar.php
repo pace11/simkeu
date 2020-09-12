@@ -24,6 +24,13 @@
             <use xlink:href="./coreui/icons/sprites/free.svg#cil-applications"></use>
           </svg> Reg</a>
       </li>
+      <?php if (get_user_login('role_login_id') == 1) { ?>
+      <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="?page=user">
+          <svg class="c-sidebar-nav-icon">
+            <use xlink:href="./coreui/icons/sprites/free.svg#cil-people"></use>
+          </svg> User</a>
+      </li>
+      <?php } ?>
       <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="?page=invoice">
           <svg class="c-sidebar-nav-icon">
             <use xlink:href="./coreui/icons/sprites/free.svg#cil-notes"></use>

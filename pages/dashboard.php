@@ -46,6 +46,21 @@
                         </div>
                     </div>
                 </div>
+                <?php if (get_user_login('role_login_id') == 1) { ?>
+                <div class="col-md-3">
+                    <div class="card text-white bg-gradient-primary">
+                        <div class="card-body">
+                            <div class="text-muted text-right mb-4">
+                                <svg class="c-icon c-icon-3xl">
+                                    <use xlink:href="./coreui/icons/sprites/free.svg#cil-people"></use>
+                                </svg>
+                            </div>
+                            <div class="text-value-lg"><?= (count_table('auth_login')-1) ?></div>
+                            <small class="text-muted text-uppercase font-weight-bold">User</small>
+                        </div>
+                    </div>
+                </div>
+                <?php } ?>
             </div>
             <div class="row">
                 <div class="col-md-12">

@@ -129,7 +129,24 @@
                 ]
             },
             options: {
-                responsive: true
+                responsive: true,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            callback: function(value, index, values) {
+                                return "Rp " + parseInt(value).toLocaleString();
+                            }
+                        }
+                    }]
+                },
+                tooltips: { 
+                    callbacks: { 
+                        label: function(value, data) {
+                            return  "Rp " + parseInt(value.yLabel).toLocaleString();
+                        }
+                    }
+                }
             }
         });
         $('#by_month').change(function(){
@@ -142,7 +159,6 @@
                 data: { 'id': value },
                 success: function(res) {
                     data = jQuery.parseJSON(res);
-                    console.log(data);
                     table = '<table class="table table-responsive-sm table-bordered table-sm"><thead><tr><th>Product</th><th>Total</th></tr></thead><tbody>';
                     table += '<tr><td><span class="badge badge-success">Cargo</span></td><td>'+data[0].value_table[0]+'</td></tr>';
                     table += '<tr><td><span class="badge badge-danger">Charter</span></td><td>'+data[0].value_table[1]+'</td></tr>';

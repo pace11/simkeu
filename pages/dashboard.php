@@ -160,10 +160,10 @@
                 success: function(res) {
                     data = jQuery.parseJSON(res);
                     table = '<table class="table table-responsive-sm table-bordered table-sm"><thead><tr><th>Product</th><th>Total</th></tr></thead><tbody>';
-                    table += '<tr><td><span class="badge badge-success">Cargo</span></td><td>'+data[0].value_table[0]+'</td></tr>';
-                    table += '<tr><td><span class="badge badge-danger">Charter</span></td><td>'+data[0].value_table[1]+'</td></tr>';
-                    table += '<tr><td><span class="badge badge-primary">Ground Handling</span></td><td>'+data[0].value_table[2]+'</td></tr>';
-                    table += '<tr><td><span class="badge badge-warning">Ticket</span></td><td>'+data[0].value_table[3]+'</td></tr></tbody></table>';
+                    table += '<tr><td><span class="badge badge-success">Cargo</span></td><td>Rp '+parseInt(data[0].value[0]).toLocaleString()+'</td></tr>';
+                    table += '<tr><td><span class="badge badge-danger">Charter</span></td><td>Rp '+parseInt(data[0].value[1]).toLocaleString()+'</td></tr>';
+                    table += '<tr><td><span class="badge badge-primary">Ground Handling</span></td><td>Rp '+parseInt(data[0].value[2]).toLocaleString()+'</td></tr>';
+                    table += '<tr><td><span class="badge badge-warning">Ticket</span></td><td>Rp '+parseInt(data[0].value[3]).toLocaleString()+'</td></tr></tbody></table>';
                     barChart.data.labels = [data[0].label];
                     barChart.data.datasets[0].data = [data[0].value[0]];
                     barChart.data.datasets[1].data = [data[0].value[1]];

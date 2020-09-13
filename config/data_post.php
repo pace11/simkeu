@@ -2,10 +2,6 @@
 
 include "connection.php";
 
-function rupiah($param){
-	return number_format($param,0,'.',',');
-}
-
 $data = explode('_',$_REQUEST['id']);
 $month = $data[0];
 $year = $data[1];
@@ -38,9 +34,8 @@ while($data4 = mysqli_fetch_array($get4)) {
 
 $db_data = [
    [
-        "label" => $arr[$month],
-        "value" => [$jum1, $jum2, $jum3, $jum4],
-        "value_table" => ['Rp '.rupiah($jum1), 'Rp '.rupiah($jum2), 'Rp '.rupiah($jum3), 'Rp '.rupiah($jum4)],
+      "label" => $arr[$month],
+      "value" => [$jum1, $jum2, $jum3, $jum4],
    ],
 ];
 

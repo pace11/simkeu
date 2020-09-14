@@ -13,7 +13,7 @@ function get_url() {
 }
 
 function url_file() {
-    $env = "production"; // [production, dev]
+    $env = "dev"; // [production, dev]
     $path_dev = 'http://localhost:80/simkeu/pages/invoice';
     $path_prod = get_url().'/pages/invoice';
     $final_path = $env === 'dev' ? $path_dev : $path_prod;

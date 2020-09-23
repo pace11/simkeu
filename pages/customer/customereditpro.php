@@ -32,7 +32,7 @@
                                                     WHERE id            = '$id'") or die (mysqli_error($conn));
                                             
                                             if ($insert){
-                                                echo    '<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Berhasil!</strong> Data telah tersimpan.'.
+                                                echo    '<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Success!</strong> Data has been saved.'.
                                                             '<button class="close" type="button" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>'.
                                                         '</div>';
                                                 echo "<meta http-equiv='refresh' content='2;

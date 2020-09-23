@@ -29,7 +29,7 @@
                                 </svg>
                             </div>
                             <div class="text-value-lg"><?= count_table('products') ?></div>
-                            <small class="text-muted text-uppercase font-weight-bold">Produk</small>
+                            <small class="text-muted text-uppercase font-weight-bold">Product</small>
                         </div>
                     </div>
                 </div>
@@ -70,7 +70,7 @@
                                 <select class="form-control" id="by_month">
                                     <?php 
                                         $sql = mysqli_query($conn, "SELECT MONTH(invoice_date) as bulan, YEAR(invoice_date) as tahun FROM invoices GROUP BY bulan DESC, tahun");
-                                        echo '<option style="display:none;">-- pilih salah satu --</option>';
+                                        echo '<option style="display:none;">-- choose one --</option>';
                                         while($datas = mysqli_fetch_array($sql)) { ?>
                                             <option value="<?= $datas['bulan'].'_'.$datas['tahun'] ?>"><?= month_year($datas['bulan'],$datas['tahun']) ?></option>
                                     <?php } ?>

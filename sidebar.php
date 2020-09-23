@@ -24,7 +24,14 @@
             <use xlink:href="./coreui/icons/sprites/free.svg#cil-applications"></use>
           </svg> Reg</a>
       </li>
-      <?php if (get_user_login('role_login_id') == 1 || get_user_login('role_login_id') == 2) { ?>
+      <?php if (get_user_login('role_login_id') == 1) { ?>
+      <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="?page=role">
+          <svg class="c-sidebar-nav-icon">
+            <use xlink:href="./coreui/icons/sprites/free.svg#cil-settings"></use>
+          </svg> Role</a>
+      </li>
+      <?php } ?>
+      <?php if (get_user_login('role_login_id') == 1 || get_user_login('role_login_id') == 2 || get_user_login('role_login_id') == 5) { ?>
       <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="?page=user">
           <svg class="c-sidebar-nav-icon">
             <use xlink:href="./coreui/icons/sprites/free.svg#cil-people"></use>
@@ -36,5 +43,12 @@
             <use xlink:href="./coreui/icons/sprites/free.svg#cil-notes"></use>
           </svg> Invoice</a>
       </li>
+      <?php if (get_user_login('role_login_id') == 1) { ?>
+      <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="?page=invoiceprintlog">
+          <svg class="c-sidebar-nav-icon">
+            <use xlink:href="./coreui/icons/sprites/free.svg#cil-print"></use>
+          </svg> Invoice Print Log</a>
+      </li>
+      <?php } ?>
     </ul>
 </div>

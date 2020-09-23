@@ -1,10 +1,10 @@
 <?php 
 
-$get = mysqli_query($conn, "SELECT * FROM invoices WHERE id='$_GET[id]'");
-$data = mysqli_fetch_array($get);
+$get    = mysqli_query($conn, "SELECT * FROM invoices WHERE id='$_GET[id]'");
+$data   = mysqli_fetch_array($get);
 
-$data_rc = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM invoices_log WHERE invoice_id='$data[id]' ORDER BY id DESC LIMIT 1"));
-$count = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM invoices_log WHERE invoice_id='$data[id]' AND invoice_log_status='T' AND invoice_log_filled='T' ORDER BY id DESC LIMIT 1"));
+$data_rc    = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM invoices_log WHERE invoice_id='$data[id]' ORDER BY id DESC LIMIT 1"));
+$count      = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM invoices_log WHERE invoice_id='$data[id]' AND invoice_log_status='T' AND invoice_log_filled='T' ORDER BY id DESC LIMIT 1"));
 
 ?>
 <div class="c-subheader px-3">

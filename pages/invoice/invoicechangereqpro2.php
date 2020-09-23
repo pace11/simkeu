@@ -58,14 +58,28 @@
                                                                                 invoice_log_filled = 'T',
                                                                                 created_at         = '$updated_at',
                                                                                 updated_at         = '$updated_at'") or die (mysqli_error($conn));
+                                                
+                                                $count_all  = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM invoices_log WHERE invoice_id='$id_inv'"));
+                                                $number_rev = $count_all < 10 ? '0'.$count_all : $count_all;
+                                                
+                                                $insert2 = mysqli_query($conn, "UPDATE invoices SET
+                                                                                invoice_number_rev = '$number_rev'
+                                                                                WHERE id           = '$id_inv'") or die (mysqli_error($conn));
                                             } else {
                                                 $insert = mysqli_query($conn, "UPDATE invoices_log SET
                                                             invoice_log_note   = '$note',
                                                             updated_at         = '$updated_at'
                                                             WHERE id           = '$id'") or die (mysqli_error($conn));
+                                                
+                                                $count_all  = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM invoices_log WHERE invoice_id='$id_inv'"));
+                                                $number_rev = $count_all < 10 ? '0'.$count_all : $count_all;
+                                                
+                                                $insert2 = mysqli_query($conn, "UPDATE invoices SET
+                                                            invoice_number_rev = '$number_rev'
+                                                            WHERE id           = '$id_inv'") or die (mysqli_error($conn));
                                             }
                                             
-                                            if ($insert){
+                                            if ($insert && $insert2){
                                                 echo    '<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Success!</strong> Request change sent.'.
                                                             '<button class="close" type="button" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>'.
                                                         '</div>';

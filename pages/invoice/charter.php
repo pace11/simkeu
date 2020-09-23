@@ -62,7 +62,7 @@
                     <table>
                         <tr>
                             <td><p style="margin:0; padding: 0;text-align: left;font-size: 12px;">Invoice ID</p></td>
-                            <td>: <?= $data[0] ?></td>
+                            <td>: <?= $data['invoice_number_rev'] ? 'REV'.$data['invoice_number_rev'].'-'.$data[0] : $data[0] ?></td>
                         </tr>
                         <tr>
                             <td><p style="margin:0; padding: 0;text-align: left;font-size: 12px;">Date</p></td>
@@ -126,7 +126,7 @@
                 <td style="width: 30%; border-top:1px solid #000;border-right:1px solid #000;border-bottom:1px solid #000;border-left:0;padding: 5px;">
                     <p style="margin:0; padding: 0;text-align: right;">DPP</p>
                     <p style="margin:0; padding: 0;text-align: right;">PPN 10%</p>
-                    <p style="margin:0; padding: 0;text-align: right;">TOTAL</p>
+                    <p style="margin:0; padding: 0;text-align: right;">TOTAL INVOICE AMOUNT</p>
                 </td>
                 <td style="width: 20%; border:1px solid #000;padding: 5px;">
                     <p style="margin:0; padding: 0;text-align: right;"><?= $data['invoice_total'] ? rupiah($data['invoice_total']) : '-'  ?></p>
@@ -160,14 +160,13 @@
                 </td>
             </tr>
         </table>
-        <table>
+        <table style="margin-top: 80px;">
             <tr>
                 <td style="width: 50%;padding: 5px;">
                 </td>
                 <td style="width: 50%;text-align: center;">
-                    <img src="dist/assets/img/logo.jpg" style="width: 100px;opacity: 0.5;" />
-                    <p style="margin:-10px 0 0 0; padding: 0;font-size: 12px;">PT SEMUWA DIRGANTARA</p>
-                    <p style="margin:0; padding: 0;font-size: 12px;">FINANCE DEPARTEMENT</p>
+                    <p style="margin:-10px 0 0 0; padding: 0;font-size: 12px;font-weight:bold;">QORIS MADILLAH</p>
+                    <p style="margin:0; padding: 0;">Direktur</p>
                 </td>
             </tr>
         </table>

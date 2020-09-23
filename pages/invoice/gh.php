@@ -62,7 +62,7 @@
                     <table>
                         <tr>
                             <td><p style="margin:0; padding: 0;text-align: left;font-size: 12px;">Invoice ID</p></td>
-                            <td>: <?= $data[0] ?></td>
+                            <td>: <?= $data['invoice_number_rev'] ? 'REV'.$data['invoice_number_rev'].'-'.$data[0] : $data[0] ?></td>
                         </tr>
                         <tr>
                             <td><p style="margin:0; padding: 0;text-align: left;font-size: 12px;">Date</p></td>
@@ -160,14 +160,12 @@
                 </td>
             </tr>
         </table>
-        <table>
+        <table style="margin-top: 80px;">
             <tr>
                 <td style="width: 50%;padding: 5px;">
                 </td>
                 <td style="width: 50%;text-align: center;">
-                    <img src="dist/assets/img/logo.jpg" style="width: 100px;opacity: 0.5;" />
-                    <p style="margin:-10px 0 0 0; padding: 0;font-size: 12px;">PT SEMUWA DIRGANTARA</p>
-                    <p style="margin:0; padding: 0;font-size: 12px;">FINANCE DEPARTEMENT</p>
+                    <p style="margin:-10px 0 0 0; padding: 0;font-size: 12px;font-weight:bold;">MUHAMMAD HALEK</p>
                 </td>
             </tr>
         </table>

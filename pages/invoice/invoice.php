@@ -12,7 +12,7 @@
                     <div class="card card-accent-primary">
                         <div class="card-header">Data Invoice</div>
                         <div class="card-body">
-                            <?php if (get_user_login('id') == 3 || get_user_login('id') == 4) { ?>
+                            <?php if (get_user_login('id') == 3 || get_user_login('id') == 4 && get_user_login('role_login_id') != 5) { ?>
                                 <div class="row mb-3">
                                     <div class="col-md-3">
                                         <a href="?page=invoiceadd" class="btn btn-primary"><span class="fa fa-plus-circle"></span> Tambah Data Invoice</a>
@@ -29,15 +29,16 @@
                             </div>
                             <div class="row">
                                 <div id="produk1" class="col-md-12">
-                                    <table class="example table <?= count_table_invoice('PRODUCT001') ? 'table-responsive' : '' ?> table-bordered table-striped">
+                                    <table class="example table table-bordered table-striped">
                                         <thead>
                                             <tr>
                                                 <th>No</th>
                                                 <th>ID</th>
                                                 <th>Date</th>
                                                 <th>Customer</th>
+                                                <th>User in request</th>
                                                 <th width="400px">Information Change</th>
-                                                <?php if (get_user_login('role_login_id') == 2) { ?>
+                                                <?php if (get_user_login('role_login_id') == 2 && get_user_login('role_login_id') != 5) { ?>
                                                 <th width="150px">Status</th>
                                                 <?php } ?>
                                                 <th width="50px">Action</th>
@@ -48,25 +49,30 @@
                                         $no = 1;
                                         $q = mysqli_query($conn, "SELECT * FROM invoices 
                                                                 JOIN customers ON invoices.customer_id=customers.id
+                                                                JOIN auth_login ON invoices.auth_login_id=auth_login.id
                                                                 WHERE invoices.deleted_at IS NULL AND invoices.product_id='PRODUCT001'
                                                                 ORDER BY invoices.updated_at DESC");
                                         while($data=mysqli_fetch_array($q)){ ?>
                                             <tr>
                                                 <td><?= $no ?></td>
-                                                <td><span class="badge badge-success"><?= $data[0] ?></span></td>
+                                                <td>
+                                                    <span class="badge badge-success"><?= $data['invoice_number_rev'] ? 'REV'.$data['invoice_number_rev'].'-'.$data[0] : $data[0] ?></span>
+                                                    <?= history_log_print($data[0]) ?>
+                                                </td>
                                                 <td><?= !empty($data['invoice_date']) ? date_ind($data['invoice_date']) : '-' ?></td>
                                                 <td><?= !empty($data['customer_name']) ? $data['customer_name'] : '-' ?></td>
+                                                <td><span class="badge badge-info"><i class="fa fa-user"></i> <?= $data['username'] ?></span></td>
                                                 <td><?= desc_invoices_log($data[0]) ?></td>
-                                                <?php if (get_user_login('role_login_id') == 2) { ?>
+                                                <?php if (get_user_login('role_login_id') == 2 && get_user_login('role_login_id') != 5) { ?>
                                                     <td>
                                                     <?= approved_select($data[0]) ?>
                                                     </td>
                                                 <?php } ?>
                                                 <td>
-                                                    <?php if ($data['auth_login_id'] == get_user_login(0)) { ?>
+                                                    <?php if ($data['auth_login_id'] == get_user_login(0) && get_user_login('role_login_id') != 5) { ?>
                                                         <a href="?page=invoiceedit1&id=<?= $data[0] ?>" class="btn btn-info btn-sm mb-1"><i class="fa fa-edit"></i> edit</a>
                                                     <?php } ?>
-                                                    <a href="?page=invoiceprint&id=<?= $data[0] ?>&date=<?= $data['invoice_date'] ?>&pid=<?= $data['product_id'] ?>" target="_blank" class="btn btn-success btn-sm mb-1"><i class="fa fa-print"></i> print</a>
+                                                    <a href="?page=invoiceprint&id=<?= $data[0] ?>&date=<?= $data['invoice_date'] ?>&pid=<?= $data['product_id'] ?>" class="btn btn-success btn-sm mb-1"><i class="fa fa-print"></i> print</a>
                                                 </td>
                                             </tr>
                                         <?php $no++; } ?>
@@ -74,14 +80,18 @@
                                     </table>
                                 </div>
                                 <div id="produk2" class="col-md-12">
-                                    <table class="example table <?= count_table_invoice('PRODUCT002') ? 'table-responsive' : '' ?> table-bordered table-striped">
+                                    <table class="example table table-bordered table-striped">
                                         <thead>
                                             <tr>
                                                 <th>No</th>
                                                 <th>ID</th>
                                                 <th>Date</th>
                                                 <th>Customer</th>
+                                                <th>User in request</th>
                                                 <th width="400px">Information Change</th>
+                                                <?php if (get_user_login('role_login_id') == 2 && get_user_login('role_login_id') != 5) { ?>
+                                                <th width="150px">Status</th>
+                                                <?php } ?>
                                                 <th width="50px">Action</th>
                                             </tr>
                                         </thead>
@@ -90,19 +100,29 @@
                                         $no = 1;
                                         $q = mysqli_query($conn, "SELECT * FROM invoices 
                                                                 JOIN customers ON invoices.customer_id=customers.id
+                                                                JOIN auth_login ON invoices.auth_login_id=auth_login.id
                                                                 WHERE invoices.deleted_at IS NULL AND invoices.product_id='PRODUCT002'");
                                         while($data=mysqli_fetch_array($q)){ ?>
                                             <tr>
                                                 <td><?= $no ?></td>
-                                                <td><span class="badge badge-success"><?= $data[0] ?></span></td>
+                                                <td>
+                                                    <span class="badge badge-success"><?= $data['invoice_number_rev'] ? 'REV'.$data['invoice_number_rev'].'-'.$data[0] : $data[0] ?></span>
+                                                    <?= history_log_print($data[0]) ?>
+                                                </td>
                                                 <td><?= !empty($data['invoice_date']) ? date_ind($data['invoice_date']) : '-' ?></td>
                                                 <td><?= !empty($data['customer_name']) ? $data['customer_name'] : '-' ?></td>
+                                                <td><span class="badge badge-info"><i class="fa fa-user"></i> <?= $data['username'] ?></span></td>
                                                 <td><?= desc_invoices_log($data[0]) ?></td>
+                                                <?php if (get_user_login('role_login_id') == 2 && get_user_login('role_login_id') != 5) { ?>
+                                                    <td>
+                                                    <?= approved_select($data[0]) ?>
+                                                    </td>
+                                                <?php } ?>
                                                 <td>
-                                                    <?php if ($data['auth_login_id'] == get_user_login(0)) { ?>
+                                                    <?php if ($data['auth_login_id'] == get_user_login(0) && get_user_login('role_login_id') != 5) { ?>
                                                         <a href="?page=invoiceedit2&id=<?= $data[0] ?>" class="btn btn-info btn-sm mb-1"><i class="fa fa-edit"></i> edit</a>
                                                     <?php } ?>
-                                                    <a href="?page=invoiceprint&id=<?= $data[0] ?>&date=<?= $data['invoice_date'] ?>&pid=<?= $data['product_id'] ?>" target="_blank" class="btn btn-success btn-sm mb-1"><i class="fa fa-print"></i> print</a>
+                                                    <a href="?page=invoiceprint&id=<?= $data[0] ?>&date=<?= $data['invoice_date'] ?>&pid=<?= $data['product_id'] ?>" class="btn btn-success btn-sm mb-1"><i class="fa fa-print"></i> print</a>
                                                 </td>
                                             </tr>
                                         <?php $no++; } ?>
@@ -110,14 +130,18 @@
                                     </table>
                                 </div>
                                 <div id="produk3" class="col-md-12">
-                                    <table class="example table <?= count_table_invoice('PRODUCT003') ? 'table-responsive' : '' ?> table-bordered table-striped">
+                                    <table class="example table table-bordered table-striped">
                                         <thead>
                                             <tr>
                                                 <th>No</th>
                                                 <th>ID</th>
                                                 <th>Date</th>
                                                 <th>Customer</th>
+                                                <th>User in request</th>
                                                 <th width="400px">Information Change</th>
+                                                <?php if (get_user_login('role_login_id') == 2 && get_user_login('role_login_id') != 5) { ?>
+                                                <th width="150px">Status</th>
+                                                <?php } ?>
                                                 <th width="50px">Action</th>
                                             </tr>
                                         </thead>
@@ -126,19 +150,29 @@
                                         $no = 1;
                                         $q = mysqli_query($conn, "SELECT * FROM invoices 
                                                                 JOIN customers ON invoices.customer_id=customers.id
+                                                                JOIN auth_login ON invoices.auth_login_id=auth_login.id
                                                                 WHERE invoices.deleted_at IS NULL AND invoices.product_id='PRODUCT003'");
                                         while($data=mysqli_fetch_array($q)){ ?>
                                             <tr>
                                                 <td><?= $no ?></td>
-                                                <td><span class="badge badge-success"><?= $data[0] ?></span></td>
+                                                <td>
+                                                    <span class="badge badge-success"><?= $data['invoice_number_rev'] ? 'REV'.$data['invoice_number_rev'].'-'.$data[0] : $data[0] ?></span>
+                                                    <?= history_log_print($data[0]) ?>
+                                                </td>
                                                 <td><?= !empty($data['invoice_date']) ? date_ind($data['invoice_date']) : '-' ?></td>
                                                 <td><?= !empty($data['customer_name']) ? $data['customer_name'] : '-' ?></td>
+                                                <td><span class="badge badge-info"><i class="fa fa-user"></i> <?= $data['username'] ?></span></td>
                                                 <td><?= desc_invoices_log($data[0]) ?></td>
+                                                <?php if (get_user_login('role_login_id') == 2 && get_user_login('role_login_id') != 5) { ?>
+                                                    <td>
+                                                    <?= approved_select($data[0]) ?>
+                                                    </td>
+                                                <?php } ?>
                                                 <td>
-                                                    <?php if ($data['auth_login_id'] == get_user_login(0)) { ?>
+                                                    <?php if ($data['auth_login_id'] == get_user_login(0) && get_user_login('role_login_id') != 5) { ?>
                                                         <a href="?page=invoiceedit3&id=<?= $data[0] ?>" class="btn btn-info btn-sm mb-1"><i class="fa fa-edit"></i> edit</a>
                                                     <?php } ?>
-                                                    <a href="?page=invoiceprint&id=<?= $data[0] ?>&date=<?= $data['invoice_date'] ?>&pid=<?= $data['product_id'] ?>" target="_blank" class="btn btn-success btn-sm mb-1"><i class="fa fa-print"></i> print</a>
+                                                    <a href="?page=invoiceprint&id=<?= $data[0] ?>&date=<?= $data['invoice_date'] ?>&pid=<?= $data['product_id'] ?>" class="btn btn-success btn-sm mb-1"><i class="fa fa-print"></i> print</a>
                                                 </td>
                                             </tr>
                                         <?php $no++; } ?>
@@ -146,14 +180,18 @@
                                     </table>
                                 </div>
                                 <div id="produk4" class="col-md-12">
-                                    <table class="example table <?= count_table_invoice('PRODUCT004') ? 'table-responsive' : '' ?> table-bordered table-striped">
+                                    <table class="example table table-bordered table-striped">
                                         <thead>
                                             <tr>
                                                 <th>No</th>
                                                 <th>ID</th>
                                                 <th>Date</th>
                                                 <th>Customer</th>
+                                                <th>User in request</th>
                                                 <th width="400px">Information Change</th>
+                                                <?php if (get_user_login('role_login_id') == 2 && get_user_login('role_login_id') != 5) { ?>
+                                                <th width="150px">Status</th>
+                                                <?php } ?>
                                                 <th width="50px">Action</th>
                                             </tr>
                                         </thead>
@@ -162,19 +200,29 @@
                                         $no = 1;
                                         $q = mysqli_query($conn, "SELECT * FROM invoices 
                                                                 JOIN customers ON invoices.customer_id=customers.id
+                                                                JOIN auth_login ON invoices.auth_login_id=auth_login.id
                                                                 WHERE invoices.deleted_at IS NULL AND invoices.product_id='PRODUCT004'");
                                         while($data=mysqli_fetch_array($q)){ ?>
                                             <tr>
                                                 <td><?= $no ?></td>
-                                                <td><span class="badge badge-success"><?= $data[0] ?></span></td>
+                                                <td>
+                                                    <span class="badge badge-success"><?= $data['invoice_number_rev'] ? 'REV'.$data['invoice_number_rev'].'-'.$data[0] : $data[0] ?></span>
+                                                    <?= history_log_print($data[0]) ?>
+                                                </td>
                                                 <td><?= !empty($data['invoice_date']) ? date_ind($data['invoice_date']) : '-' ?></td>
                                                 <td><?= !empty($data['customer_name']) ? $data['customer_name'] : '-' ?></td>
+                                                <td><span class="badge badge-info"><i class="fa fa-user"></i> <?= $data['username'] ?></span></td>
                                                 <td><?= desc_invoices_log($data[0]) ?></td>
+                                                <?php if (get_user_login('role_login_id') == 2 && get_user_login('role_login_id') != 5) { ?>
+                                                    <td>
+                                                    <?= approved_select($data[0]) ?>
+                                                    </td>
+                                                <?php } ?>
                                                 <td>
-                                                    <?php if ($data['auth_login_id'] == get_user_login(0)) { ?>
+                                                    <?php if ($data['auth_login_id'] == get_user_login(0) && get_user_login('role_login_id') != 5) { ?>
                                                         <a href="?page=invoiceedit4&id=<?= $data[0] ?>" class="btn btn-info btn-sm mb-1"><i class="fa fa-edit"></i> edit</a>
                                                     <?php } ?>
-                                                    <a href="?page=invoiceprint&id=<?= $data[0] ?>&date=<?= $data['invoice_date'] ?>&pid=<?= $data['product_id'] ?>" target="_blank" class="btn btn-success btn-sm mb-1"><i class="fa fa-print"></i> print</a>
+                                                    <a href="?page=invoiceprint&id=<?= $data[0] ?>&date=<?= $data['invoice_date'] ?>&pid=<?= $data['product_id'] ?>" class="btn btn-success btn-sm mb-1"><i class="fa fa-print"></i> print</a>
                                                 </td>
                                             </tr>
                                         <?php $no++; } ?>
@@ -225,7 +273,7 @@ $(document).ready(function(){
 </script>
 <script type="text/javascript">
     $(function () {
-        $('#approved').change(function(){
+        $('.approved').change(function(){
             var $option = $(this).find('option:selected');
             var value = $option.val();
             var data = $('')

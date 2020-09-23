@@ -12,11 +12,13 @@
                     <div class="card card-accent-primary">
                         <div class="card-header">Data Customer</div>
                         <div class="card-body">
+                            <?php if (get_user_login('role_login_id') != 5) { ?>
                             <div class="row mb-3">
                                 <div class="col-md-3">
-                                <a href="?page=customeradd" class="btn btn-primary"><span class="fa fa-plus-circle"></span> Tambah Data Customer</a>
+                                <a href="?page=customeradd" class="btn btn-primary"><span class="fa fa-plus-circle"></span> Add Data Customer</a>
                                 </div>
                             </div>
+                            <?php } ?>
                             <div class="row">
                                 <div class="col-md-12">
                                     <table class="example table table-responsive-sm table-bordered table-striped table-sm">
@@ -24,10 +26,12 @@
                                             <tr>
                                                 <th>No</th>
                                                 <th>ID</th>
-                                                <th>Nama</th>
-                                                <th>No Telp</th>
-                                                <th>Alamat</th>
-                                                <th>Aksi</th>
+                                                <th>Name</th>
+                                                <th>Phone</th>
+                                                <th>Address</th>
+                                                <?php if (get_user_login('role_login_id') != 5) { ?>
+                                                <th>Action</th>
+                                                <?php } ?>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -41,10 +45,12 @@
                                                 <td><?= !empty($data['customer_name']) ? $data['customer_name'] : '-' ?></td>
                                                 <td><?= !empty($data['customer_phone']) ? $data['customer_phone'] : '-' ?></td>
                                                 <td><?= !empty($data['customer_address']) ? $data['customer_address'] : '-' ?></td>
+                                                <?php if (get_user_login('role_login_id') != 5) { ?>
                                                 <td>
                                                     <a href="?page=customeredit&id=<?= $data['id'] ?>" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> edit</a>
-                                                    <a href="?page=customerdelete&id=<?= $data['id'] ?>" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> hapus</a>
+                                                    <a href="?page=customerdelete&id=<?= $data['id'] ?>" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> delete</a>
                                                 </td>
+                                                <?php } ?>
                                             </tr>
                                         <?php $no++; } ?>
                                         </tbody>

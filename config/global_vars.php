@@ -212,13 +212,27 @@ function approved_select($param) {
     $data = mysqli_fetch_array($q1);
     if ($count_all > 0) {
         if ($count > 0)
-            $tmp = '<span class="badge badge-danger"><i class="fa fa-remove"></i> not approved</span><select id="approved" class="form-control"><option style="display:none;">- choose -</option><option value="Y'.$data['invoice_id'].'">Approved</option><option value="T'.$data['invoice_id'].'">Not Approved</option></select>';
+            $tmp = '<span class="badge badge-danger"><i class="fa fa-remove"></i> not approved</span><select class="form-control approved"><option style="display:none;">- choose -</option><option value="Y'.$data['invoice_id'].'">Approved</option><option value="T'.$data['invoice_id'].'">Not Approved</option></select>';
         else
             $tmp = '<span class="badge badge-success"><i class="fa fa-check"></i> approved</span>';
     } else {
         $tmp = '-';
     }
     return $tmp;
+}
+
+function history_log_print($param) {
+    include "connection.php";
+    $tmp = "";
+    $count = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM invoices_print_log WHERE invoice_id='$param'"));
+    if ($count > 0) {
+        $tmp = '<p style="font-style:italic;font-size:9pt;text-decoration:underline;"><a>'.$count.'x user print</a></p>';
+    }
+    return $tmp;
+}
+
+function date_time($param) {
+    return date_ind(date('Y-m-d', strtotime($param))).', Jam '.date('H:i:s', strtotime($param));
 }
 
 ?>

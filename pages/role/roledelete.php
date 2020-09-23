@@ -2,7 +2,7 @@
     <ol class="breadcrumb border-0 m-0">
         <li class="breadcrumb-item"><a href="?page=beranda">Home</a></li>
         <li class="breadcrumb-item active"><a href="?page=product">Product</a></li>
-        <li class="breadcrumb-item active">Edit Data Product</li>
+        <li class="breadcrumb-item active">Hapus Data Product</li>
     </ol>
 </div>
 <main class="c-main">
@@ -11,26 +11,25 @@
             <div class="row">
                 <div class="col-sm-12 col-md-12 col-lg-12">
                     <div class="card card-accent-primary">
-                        <div class="card-header">Edit Data Product</div>
+                        <div class="card-header">Hapus Data Product</div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-12">
+                                    <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                                        Apakah anda yakin ingin menghapus data ini ?
+                                        <form action="?page=productdelete" method="post" enctype="multipart/form-data">
+                                            <input type="hidden" name="id" value="<?= $_GET['id'] ?>">
+                                            <input type="submit" name="submit" class="btn btn-danger" value="Ya">
+                                            <a href="?page=product" class="btn btn-primary">Tidak</a>
+                                        </form>
+                                    </div>
                                     <?php 
                                         if (isset($_POST['submit'])){
                                             $id         = $_POST['id'];
-                                            $prod_name  = $_POST['product_name'];
-                                            $prod_code  = strtoupper($_POST['product_code']);
-                    
-                                            $updated_at = date('Y-m-d H:i:s');
-                    
-                                            $insert = mysqli_query($conn, "UPDATE products SET
-                                                    product_name        = '$prod_name',
-                                                    product_code        = '$prod_code',
-                                                    updated_at          = '$updated_at'
-                                                    WHERE id            = '$id'") or die (mysqli_error($conn));
-                                            
-                                            if ($insert){
-                                                echo    '<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Success!</strong> Data has been saved.'.
+                                            $deleted_at = date('Y-m-d H:i:s');
+                                            $delete     = mysqli_query($conn, "UPDATE products SET deleted_at='$deleted_at' WHERE id='$id'");
+                                            if ($delete){
+                                                echo    '<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Berhasil!</strong> Data telah dihapus.'.
                                                             '<button class="close" type="button" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>'.
                                                         '</div>';
                                                 echo "<meta http-equiv='refresh' content='2;

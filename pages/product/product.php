@@ -12,11 +12,13 @@
                     <div class="card card-accent-primary">
                         <div class="card-header">Data Product</div>
                         <div class="card-body">
+                            <?php if (get_user_login('role_login_id') != 5) { ?>
                             <div class="row mb-3">
                                 <div class="col-md-3">
-                                <a href="?page=productadd" class="btn btn-primary"><span class="fa fa-plus-circle"></span> Tambah Data Product</a>
+                                <a href="?page=productadd" class="btn btn-primary"><span class="fa fa-plus-circle"></span> Add Data Product</a>
                                 </div>
                             </div>
+                            <?php } ?>
                             <div class="row">
                                 <div class="col-md-12">
                                     <table class="example table table-responsive-sm table-bordered table-striped table-sm">
@@ -24,9 +26,11 @@
                                             <tr>
                                                 <th>No</th>
                                                 <th>ID</th>
-                                                <th>Nama</th>
-                                                <th>Kode Product</th>
-                                                <th>Aksi</th>
+                                                <th>Name</th>
+                                                <th>Product Code</th>
+                                                <?php if (get_user_login('role_login_id') != 5) { ?>
+                                                <th>Action</th>
+                                                <?php } ?>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -39,10 +43,12 @@
                                                 <td><span class="badge badge-success"><?= $data['id'] ?></span></td>
                                                 <td><?= !empty($data['product_name']) ? $data['product_name'] : '-' ?></td>
                                                 <td><?= !empty($data['product_code']) ? $data['product_code'] : '-' ?></td>
+                                                <?php if (get_user_login('role_login_id') != 5) { ?>
                                                 <td>
                                                     <a href="?page=productedit&id=<?= $data['id'] ?>" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> edit</a>
-                                                    <a href="?page=productdelete&id=<?= $data['id'] ?>" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> hapus</a>
+                                                    <a href="?page=productdelete&id=<?= $data['id'] ?>" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> delete</a>
                                                 </td>
+                                                <?php } ?>
                                             </tr>
                                         <?php $no++; } ?>
                                         </tbody>

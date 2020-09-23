@@ -15,7 +15,7 @@
     <ol class="breadcrumb border-0 m-0">
         <li class="breadcrumb-item"><a href="?page=beranda">Home</a></li>
         <li class="breadcrumb-item active"><a href="?page=customer">Customer</a></li>
-        <li class="breadcrumb-item active">Tambah Data Customer</li>
+        <li class="breadcrumb-item active">Add Data Customer</li>
     </ol>
 </div>
 <main class="c-main">
@@ -24,7 +24,7 @@
             <div class="row">
                 <div class="col-sm-12 col-md-12 col-lg-12">
                     <div class="card card-accent-primary">
-                        <div class="card-header">Tambah Data Customer</div>
+                        <div class="card-header">Add Data Customer</div>
                         <form action="?page=customeraddpro" method="post" enctype="multipart/form-data">
                             <div class="card-body">
                                 <div class="row">
@@ -43,31 +43,31 @@
                                 <div class="row">
                                     <div class="col-md-8">
                                         <div class="form-group">
-                                            <label for="name">Nama Customer</label>
-                                            <input class="form-control" type="text" placeholder="Nama Customer ..." name="customer_name" autocomplete="OFF" required>
+                                            <label for="name">Customer Name</label>
+                                            <input class="form-control" type="text" placeholder="Customer Name ..." name="customer_name" autocomplete="OFF" required>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-8">
                                         <div class="form-group">
-                                            <label for="name">Telepon Customer</label>
-                                            <input class="form-control" type="text" placeholder="Telepon Customer ..." name="customer_phone" autocomplete="OFF">
+                                            <label for="name">Customer Phone</label>
+                                            <input class="form-control" type="text" placeholder="Customer Phone ..." name="customer_phone" autocomplete="OFF">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-8">
                                         <div class="form-group">
-                                            <label for="name">Alamat Customer</label>
-                                            <textarea class="form-control" name="customer_address" rows="3" placeholder="Alamat Customer ..."></textarea>
+                                            <label for="name">Customer Address</label>
+                                            <textarea class="form-control" name="customer_address" rows="3" placeholder="Customer Address ..."></textarea>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <input type="submit" name="submit" class="btn btn-primary" value="Simpan">
-                                <a href="?page=customer" class="btn btn-secondary">Kembali</a>
+                                <input type="submit" name="submit" class="btn btn-primary" value="Save">
+                                <a href="?page=customer" class="btn btn-secondary">Back</a>
                             </div>
                         </form>
                     </div>

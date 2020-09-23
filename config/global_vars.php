@@ -25,6 +25,11 @@ function count_table($name) {
     return mysqli_num_rows(mysqli_query($conn, "SELECT * FROM $name WHERE deleted_at IS NULL"));
 }
 
+function count_table_invoice($param) {
+    include "connection.php";
+    return mysqli_num_rows(mysqli_query($conn, "SELECT * FROM invoices WHERE product_id='$param' AND deleted_at IS NULL"));
+}
+
 function date_ind($param){
     $month = array (1 =>   'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
         'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember');
@@ -67,9 +72,55 @@ function get_user_login($param) {
     return $data[$param];
 }
 
+function label_invoices($param) {
+    $tmp = "";
+    if ($param == 'Y') {
+        $tmp = '<span class="badge badge-success"><i class="fa fa-check"></i></span>';
+    } else {
+        $tmp = '<span data-toggle="tooltip" data-placement="top" title="" data-original-title="Tooltip on top" class="badge badge-danger"><i class="fa fa-spinner fa-pulse"></i></span>';
+    }
+    return $tmp;
+}
+
+function desc_invoices_log($param) {
+    include "connection.php";
+    $tmp = "";
+    $q = mysqli_query($conn, "SELECT * FROM invoices_log WHERE invoice_id='$param'");
+    $count = mysqli_num_rows($q);
+    if ($count > 0) {
+        $tmp = '<p style="padding:0;margin:0;"><span class="badge badge-info">'.$count.' Request Change</span></p>'; 
+        $tmp .= '<ol style="padding: 0;margin: 0 0 0 15px;">';
+        while($data=mysqli_fetch_array($q)) {
+            $tmp .='<li><p style="padding:0;margin:0;">'.$data['invoice_log_note'].' - '.date('d/M/Y', strtotime($data['created_at'])).' '.label_invoices($data['invoice_log_status']).'</p></li>';
+        }
+        $tmp .= '</ol>';
+    } else {
+        $tmp = '-';
+    }
+    return $tmp;
+}
+
 function get_romawi($param) {
     $arr = ['', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII'];
     return $arr[ltrim($param, 0)];
+}
+
+function role_desc($param) {
+    include "connection.php";
+    $tmp = "";
+    $data = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM role_login WHERE id=$param"));
+    switch($data['id']) {
+        case 2:
+        $tmp = '<span class="badge badge-info"><i class="fa fa-lock"></i> '.$data['role_login_name'].'</span>';
+        break;
+        case 3:
+        $tmp = '<span class="badge badge-success"><i class="fa fa-lock"></i> '.$data['role_login_name'].'</span>';
+        break;
+        default:
+        $tmp = '<span class="badge badge-warning"><i class="fa fa-lock"></i> '.$data['role_login_name'].'</span>';
+        break;
+    }
+    return $tmp;
 }
 
 function description($param1, $param2) {
@@ -149,6 +200,25 @@ function terbilang($nilai) {
 		$hasil = trim(penyebut($nilai));
 	}     		
 	return $hasil;
+}
+
+function approved_select($param) {
+    include "connection.php";
+    $tmp = "";
+    $count_all = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM invoices_log WHERE invoice_id='$param'"));
+    $q = mysqli_query($conn, "SELECT * FROM invoices_log WHERE invoice_id='$param' AND invoice_log_status='T' ORDER BY id DESC LIMIT 1");
+    $q1 = mysqli_query($conn, "SELECT * FROM invoices_log WHERE invoice_id='$param' ORDER BY id DESC LIMIT 1");
+    $count = mysqli_num_rows($q);
+    $data = mysqli_fetch_array($q1);
+    if ($count_all > 0) {
+        if ($count > 0)
+            $tmp = '<span class="badge badge-danger"><i class="fa fa-remove"></i> not approved</span><select id="approved" class="form-control"><option style="display:none;">- choose -</option><option value="Y'.$data['invoice_id'].'">Approved</option><option value="T'.$data['invoice_id'].'">Not Approved</option></select>';
+        else
+            $tmp = '<span class="badge badge-success"><i class="fa fa-check"></i> approved</span>';
+    } else {
+        $tmp = '-';
+    }
+    return $tmp;
 }
 
 ?>

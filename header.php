@@ -16,15 +16,10 @@
                 <div class="dropdown-header bg-light py-2">
                     <strong><?= get_user_login('role_login_name') ?></strong>
                 </div>
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item" href="?page=profile">
                     <svg class="c-icon mr-2">
                         <use xlink:href="./coreui/icons/sprites/free.svg#cil-user"></use>
                     </svg> Profile
-                </a>
-                <a class="dropdown-item" href="#">
-                    <svg class="c-icon mr-2">
-                        <use xlink:href="./coreui/icons/sprites/free.svg#cil-settings"></use>
-                    </svg> Settings
                 </a>
                 <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="?page=logout">

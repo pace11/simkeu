@@ -2,7 +2,7 @@
     <ol class="breadcrumb border-0 m-0">
         <li class="breadcrumb-item"><a href="?page=beranda">Home</a></li>
         <li class="breadcrumb-item active"><a href="?page=user">User</a></li>
-        <li class="breadcrumb-item active">Hapus Data User</li>
+        <li class="breadcrumb-item active">Delete Data User</li>
     </ol>
 </div>
 <main class="c-main">
@@ -11,16 +11,16 @@
             <div class="row">
                 <div class="col-sm-12 col-md-12 col-lg-12">
                     <div class="card card-accent-primary">
-                        <div class="card-header">Hapus Data User</div>
+                        <div class="card-header">Delete Data User</div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="alert alert-primary alert-dismissible fade show" role="alert">
-                                        Apakah anda yakin ingin menghapus data ini ?
+                                        Are you realy to delete this data ?
                                         <form action="?page=userdelete" method="post" enctype="multipart/form-data">
                                             <input type="hidden" name="id" value="<?= $_GET['id'] ?>">
-                                            <input type="submit" name="submit" class="btn btn-danger" value="Ya">
-                                            <a href="?page=user" class="btn btn-primary">Tidak</a>
+                                            <input type="submit" name="submit" class="btn btn-danger" value="Yes">
+                                            <a href="?page=user" class="btn btn-primary">No</a>
                                         </form>
                                     </div>
                                     <?php 
@@ -29,7 +29,7 @@
                                             $deleted_at = date('Y-m-d H:i:s');
                                             $delete     = mysqli_query($conn, "UPDATE auth_login SET deleted_at='$deleted_at' WHERE id='$id'");
                                             if ($delete){
-                                                echo    '<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Berhasil!</strong> Data telah dihapus.'.
+                                                echo    '<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Success!</strong> Data has been deleted.'.
                                                             '<button class="close" type="button" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>'.
                                                         '</div>';
                                                 echo "<meta http-equiv='refresh' content='2;

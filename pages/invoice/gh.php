@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Ground Handling Invoice</title>
+    <title>Cargo Invoice</title>
     <style>
         body {
             font-size: 8pt;
@@ -28,47 +28,55 @@
                                     JOIN customers ON invoices.customer_id=customers.id
                                     JOIN products ON invoices.product_id=products.id
                                     JOIN auth_login ON invoices.auth_login_id=auth_login.id
+                                    JOIN reg ON invoices.reg_id=reg.id
                                     WHERE invoices.id='$_GET[id]'") or die (mysqli_error($conn));
         $data = mysqli_fetch_array($get);
     ?>
-    <div style="width:100%;height: auto;box-sizing: border-box;border-style: double;">
-        <div style="text-align: center;height: 80px;border: 1px solid #000;">
-            <img src="dist/assets/img/logo.jpg" style="position: absolute;left: 10px;width: 80px;" />
-            <h2 style="margin:15px 0 0 0;padding:0;">PT. SEMUWA DIRGANTARA</h2>
-            <h3 style="margin:0;padding:0;">GROUND HANDLING</h3>
+    <div style="width:100%;height: auto;box-sizing: border-box;">
+        <div style="text-align: right;height: 100px;">
+            <img src="dist/assets/img/logo.jpg" style="position: absolute;left: 10px;width: 120px;margin:-20px 0 0 0;" />
+            <h1 style="padding:0;margin:0;">PT SEMUWA DIRGANTARA</h1>
+            <p style="padding:0;margin:0;">Jl. Yabaso Kompleks Pergudangan Kelas 1A Sentani</p>
+            <p style="padding:0;margin:0;">Telp/Fax : (0967) 591915, Telp: 0811484040</p>
+            <p style="padding:0;margin:0;">Sentani, Jayapura</p>
         </div>
         <table>
             <tr>
-                <td colspan="2" style="text-align: center;background: #fab1a0;border:1px solid #000;">
-                    <h3 style="margin:15px;padding:0;">INVOICE</h3>
+                <td style="width: 20%;padding: 5px;">
+                    <h1 style="margin:0; padding: 0;text-align: left;">INVOICE</h1>
+                </td>
+                <td style="width: 80%;">
+                    <hr style="border: 3px solid #000;">
                 </td>
             </tr>
         </table>
-        <table>
+        <table style="margin:0 0 20px 0;">
             <tr>
-                <td style="width: 50%; border:1px solid #000;padding: 15px;">
-                    <p style="margin:0; padding: 0;text-align: left;">INVOICE NO: <?= $data[0] ?> </p>
+                <td style="width: 50%;padding: 5px;">
+                    <p style="margin:0 0 5px 0; padding: 0;text-align: left;">Invoice To</p>
+                    <p style="margin:0; padding: 0;text-align: left;font-size: 12px;"><?= $data['customer_name'] ? $data['customer_name'] : '-'  ?></p>
+                    <p style="margin:0; padding: 0;text-align: left;font-size: 12px;"><?= $data['customer_address'] ? $data['customer_address'] : '-'  ?></p>
+                    <p style="margin:0; padding: 0;text-align: left;font-size: 12px;"><?= $data['customer_phone'] ? $data['customer_phone'] : '-'  ?></p>
                 </td>
-                <td style="width: 50%; border:1px solid #000;padding: 15px;">
-                    <p style="margin:0; padding: 0;text-align:right;text-transform:uppercase;">DATE: <?= date_ind($data['invoice_date']) ?> </p>
-                </td>
-            </tr>
-        </table>
-        <table>
-            <tr>
-                <td rowspan="2" style="width: 40%; border:1px solid #000;padding: 5px;">
-                    <p style="margin:0; padding: 0;text-align: left;">MESSRS</p>
-                    <p style="margin:0; padding: 0;text-align: center;text-transform: uppercase;"><?= $data['customer_name'] ?></p>
-                </td>
-                <td style="width: 60%; border:1px solid #000;padding: 5px;">
-                    <p style="margin:0; padding: 0;text-align: left;">CHARTER </p>
-                    <p style="margin:0; padding: 0;text-align: left;">CONTRACT NO. <?= $data['invoice_contract_no'] ?></p>
-                </td>
-            </tr>
-            <tr>
-                <td style="width: 60%; border:1px solid #000;padding: 5px;">
-                    <p style="margin:0; padding: 0;text-align: left;">FLIGHT </p>
-                    <p style="margin:0; padding: 0;text-align: left;">RECORD NO. <?= $data['invoice_record_no'] ?></p>
+                <td style="width: 50%;">
+                    <table>
+                        <tr>
+                            <td><p style="margin:0; padding: 0;text-align: left;font-size: 12px;">Invoice ID</p></td>
+                            <td>: <?= $data[0] ?></td>
+                        </tr>
+                        <tr>
+                            <td><p style="margin:0; padding: 0;text-align: left;font-size: 12px;">Date</p></td>
+                            <td>: <?= date_ind($data['invoice_date']) ?></td>
+                        </tr>
+                        <tr>
+                            <td><p style="margin:0; padding: 0;text-align: left;font-size: 12px;">Ground Handling Contract No</p></td>
+                            <td>: <?= $data['invoice_contract_no'] ? $data['invoice_contract_no'] : '-' ?></td>
+                        </tr>
+                        <tr>
+                            <td><p style="margin:0; padding: 0;text-align: left;font-size: 12px;">Flight Record No</p></td>
+                            <td>: <?= $data['invoice_record_no'] ? $data['invoice_record_no'] : '-' ?></td>
+                        </tr>
+                    </table>
                 </td>
             </tr>
         </table>
@@ -87,7 +95,7 @@
                     <p style="margin:0; padding: 0;text-align: center;">PRICE PER HOUR</p>
                 </td>
                 <td style="width: 20%; border:1px solid #000;padding: 5px;background: #fab1a0;">
-                    <p style="margin:0; padding: 0;text-align: center;">PRICE PER HOUR</p>
+                    <p style="margin:0; padding: 0;text-align: center;">EXTENDED PRICE</p>
                 </td>
             </tr>
             <tr>
@@ -95,18 +103,18 @@
                     <p style="margin:0; padding: 0;text-align: center;">1.</p>
                 </td>
                 <td style="width: 35%; border:1px solid #000;padding: 5px;">
-                    <p style="margin:0; padding: 0;text-align: left;text-transform:capitalize;"><?= $data['invoice_note'] ?></p>
+                    <p style="margin:0; padding: 0;text-align: left;text-transform:capitalize;"><?= $data['invoice_note'].' '.$data['reg_name'] ?></p>
                     <p style="margin:0; padding: 0;text-align: left;text-transform:capitalize;">Datang Tanggal <?= date_ind($data['invoice_date_period_1']) ?></p>
                     <p style="margin:0; padding: 0;text-align: left;text-transform:capitalize;">Berangkat Tanggal <?= date_ind($data['invoice_date_period_2']) ?></p>
                 </td>
                 <td style="width: 20%; border:1px solid #000;padding: 5px;">
-                    <p style="margin:0; padding: 0;text-align: center;vertical-align: bottom;text-transform:uppercase;"><?= $data['invoice_total_hour'] ?></p>
+                    <p style="margin:0; padding: 0;text-align: center;vertical-align: bottom;text-transform:uppercase;"><?= $data['invoice_total_hour'] ?> HOURS</p>
                 </td>
                 <td style="width: 20%; border:1px solid #000;padding: 5px;">
                     <p style="margin:0; padding: 0;text-align: center;vertical-align: bottom;text-transform:uppercase;"><?= $data['invoice_price_hour'] ?></p>
                 </td>
                 <td style="width: 20%; border:1px solid #000;padding: 5px;">
-                    <p style="margin:0; padding: 0;text-align: right;text-transform:uppercase;"><strong><?= rupiah($data['invoice_total']) ?></strong></p>
+                    <p style="margin:0; padding: 0;text-align: right;text-transform:uppercase;"><?= rupiah($data['invoice_total']) ?></p>
                 </td>
             </tr>
         </table>
@@ -121,38 +129,45 @@
                     <p style="margin:0; padding: 0;text-align: right;">TOTAL INVOICE AMOUNT</p>
                 </td>
                 <td style="width: 20%; border:1px solid #000;padding: 5px;">
-                    <p style="margin:0; padding: 0;text-align: right;"><strong><?= $data['invoice_total'] ? rupiah($data['invoice_total']) : '-'  ?></strong></p>
-                    <p style="margin:0; padding: 0;text-align: right;"><strong><?= $data['invoice_vat'] ? rupiah($data['invoice_vat']) : '-' ?></strong></p>
-                    <p style="margin:0; padding: 0;text-align: right;"><strong><?= $data['invoice_amount'] ? rupiah($data['invoice_amount']) : '-' ?></strong></p>
+                    <p style="margin:0; padding: 0;text-align: right;"><?= $data['invoice_total'] ? rupiah($data['invoice_total']) : '-'  ?></p>
+                    <p style="margin:0; padding: 0;text-align: right;"><?= $data['invoice_vat'] ? rupiah($data['invoice_vat']) : '-' ?></p>
+                    <p style="margin:0; padding: 0;text-align: right;"><?= $data['invoice_amount'] ? rupiah($data['invoice_amount']) : '-' ?></p>
+                </td>
+            </tr>
+        </table>
+        <table style="width: 60%;margin:20px 0 0 0;">
+            <tr>
+                <td>
+                    <p style="margin:0; padding: 0;text-align: left;font-size: 14px;font-weight: bold;">PAYMENT DETAIL</p>
+                    <table>
+                        <tr>
+                            <td style="width: 50%;"><p style="margin:0; padding: 0;text-align: left;font-size: 12px;">BANK NAME</p></td>
+                            <td>: Bank Mandiri</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 50%;"><p style="margin:0; padding: 0;text-align: left;font-size: 12px;">BANK BRANCH</p></td>
+                            <td>: Sentani, Kab Jayapura</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 50%;"><p style="margin:0; padding: 0;text-align: left;font-size: 12px;">BANK ACCOUNT NUMBER</p></td>
+                            <td>: 1540010795759</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 50%;"><p style="margin:0; padding: 0;text-align: left;font-size: 12px;">BANK ACCOUNT NAME</p></td>
+                            <td>: PT SEMUWA DIRGANTARA</td>
+                        </tr>
+                    </table>
                 </td>
             </tr>
         </table>
         <table>
             <tr>
-                <td style="width: 50%;padding: 5px;border-top:1px solid #000;border-left:1px solid #000;">
+                <td style="width: 50%;padding: 5px;">
                 </td>
-                <td style="width: 50%;padding: 5px;border-top:1px solid #000;border-right:1px solid #000;">
-                    <p style="margin:0; padding: 0;text-align: center;">FOR AND BEHALF OF PT. SEMUWA DIRGANTARA<br>GROUND HANDLING</p>
-                </td>
-            </tr>
-            <tr>
-                <td style="width: 50%;padding: 5px;border-bottom:1px solid #000;border-left:1px solid #000;">
-                </td>
-                <td style="width: 50%;padding: 5px;border-bottom:1px solid #000;border-right:1px solid #000;">
-                    <p style="margin:50px 0 0 0;padding:0;text-align: center;">
-                        <u><b>MUHAMMAD HALEK</b></u><br>
-                    </p>
-                </td>
-            </tr>
-        </table>
-        <table>
-            <tr>
-                <td style="width: 100%;padding: 5px;border:1px solid #000;">
-                    <p style="margin:50px 0 0 0;padding:0;text-align: center;">
-                        Jln. Yabaso Kompleks Pergudangan Klas IA Sentani <br>
-                        Telp / Faks: (0967) 591915, HP: 0811484040 <br>
-                        Sentani - Jayapura
-                    </p>
+                <td style="width: 50%;text-align: center;">
+                    <img src="dist/assets/img/logo.jpg" style="width: 100px;opacity: 0.5;" />
+                    <p style="margin:-10px 0 0 0; padding: 0;font-size: 12px;">PT SEMUWA DIRGANTARA</p>
+                    <p style="margin:0; padding: 0;font-size: 12px;">FINANCE DEPARTEMENT</p>
                 </td>
             </tr>
         </table>

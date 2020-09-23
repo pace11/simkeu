@@ -46,7 +46,7 @@
                         </div>
                     </div>
                 </div>
-                <?php if (get_user_login('role_login_id') == 1) { ?>
+                <?php if (get_user_login('role_login_id') == 1 || get_user_login('role_login_id') == 2) { ?>
                 <div class="col-md-3">
                     <div class="card text-white bg-gradient-primary">
                         <div class="card-body">

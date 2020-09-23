@@ -6,7 +6,7 @@
       <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="?page=beranda">
           <svg class="c-sidebar-nav-icon">
             <use xlink:href="./coreui/icons/sprites/free.svg#cil-speedometer"></use>
-          </svg> Beranda</a>
+          </svg> Dashboard</a>
       </li>
       <li class="c-sidebar-nav-title">Menu</li>
       <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="?page=customer">
@@ -17,14 +17,14 @@
       <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="?page=product">
           <svg class="c-sidebar-nav-icon">
             <use xlink:href="./coreui/icons/sprites/free.svg#cil-scrubber"></use>
-          </svg> Produk</a>
+          </svg> Product</a>
       </li>
       <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="?page=reg">
           <svg class="c-sidebar-nav-icon">
             <use xlink:href="./coreui/icons/sprites/free.svg#cil-applications"></use>
           </svg> Reg</a>
       </li>
-      <?php if (get_user_login('role_login_id') == 1) { ?>
+      <?php if (get_user_login('role_login_id') == 1 || get_user_login('role_login_id') == 2) { ?>
       <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="?page=user">
           <svg class="c-sidebar-nav-icon">
             <use xlink:href="./coreui/icons/sprites/free.svg#cil-people"></use>

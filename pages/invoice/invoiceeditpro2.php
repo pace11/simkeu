@@ -18,6 +18,7 @@
                                     <?php 
                                         if (isset($_POST['submit'])){
                                             $id             = $_POST['id'];
+                                            $id_log         = $_POST['id_log'];
                                             $customer       = $_POST['customer'];
                                             $contract       = $_POST['contract_no'];
                                             $record         = $_POST['record_no'];
@@ -30,9 +31,6 @@
                                             $filename = str_replace(['-','/'], ['',''],$id).'.pdf';
                                             $dir = strtoupper(date('F_Y', strtotime($_POST['invoice_date'])));
                                             $exist_dir = "file/".$dir;
-                                            if (!file_exists($exist_dir)) {
-                                                mkdir("file/".$dir, 0777);
-                                            }
 
                                             $invoice_file   = $exist_dir.'/'.$filename;
                                             $total          = intval($_POST['total_amount']);
@@ -59,14 +57,12 @@
                                                         updated_at              = '$updated_at'
                                                         WHERE   id              = '$id'") or die (mysqli_error($conn));
                                             
-                                            $html = file_get_contents(url_file()."/charter.php?id=$id");
-                                            $dompdf->loadHtml($html);
-                                            $dompdf->setPaper('A4', 'portrait');
-                                            $dompdf->render();
-                                            $output = $dompdf->output();
-                                            $file_put = file_put_contents($exist_dir.'/'.$filename, $output);   
+                                            $insert2 = mysqli_query($conn, "UPDATE invoices_log SET
+                                                        invoice_log_filled = 'Y',
+                                                        updated_at         = '$updated_at'
+                                                        WHERE id           = '$id_log'") or die (mysqli_error($conn));
                                             
-                                            if ($insert && $file_put){
+                                            if ($insert && $insert2){
                                                 echo    '<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Berhasil!</strong> Data telah tersimpan.'.
                                                             '<button class="close" type="button" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>'.
                                                         '</div>';

@@ -12,11 +12,13 @@
                     <div class="card card-accent-primary">
                         <div class="card-header">Data Invoice</div>
                         <div class="card-body">
-                            <div class="row mb-3">
-                                <div class="col-md-3">
-                                <a href="?page=invoiceadd" class="btn btn-primary"><span class="fa fa-plus-circle"></span> Tambah Data Invoice</a>
+                            <?php if (get_user_login('id') == 3 || get_user_login('id') == 4) { ?>
+                                <div class="row mb-3">
+                                    <div class="col-md-3">
+                                        <a href="?page=invoiceadd" class="btn btn-primary"><span class="fa fa-plus-circle"></span> Tambah Data Invoice</a>
+                                    </div>
                                 </div>
-                            </div>
+                            <?php } ?>
                             <div class="row">
                                 <div class="col-md-12 mb-3">
                                     <button id="btn1" class="btn btn-info btn-sm">CARGO</button>
@@ -27,25 +29,18 @@
                             </div>
                             <div class="row">
                                 <div id="produk1" class="col-md-12">
-                                    <table class="example table table-responsive table-bordered table-striped">
+                                    <table class="example table <?= count_table_invoice('PRODUCT001') ? 'table-responsive' : '' ?> table-bordered table-striped">
                                         <thead>
                                             <tr>
                                                 <th>No</th>
                                                 <th>ID</th>
-                                                <th>Contract No</th>
-                                                <th>Record No</th>
+                                                <th>Date</th>
                                                 <th>Customer</th>
-                                                <th>Tanggal</th>
-                                                <th>Deskripsi</th>
-                                                <th>Total Hour</th>
-                                                <th>Price Hour</th>
-                                                <th>Extended Price</th>
-                                                <th>Total</th>
-                                                <th>Vat 1%</th>
-                                                <th>Diskon</th>
-                                                <th>Total Invoice Amount</th>
-                                                <th>Terbilang</th>
-                                                <th>Aksi</th>
+                                                <th width="400px">Information Change</th>
+                                                <?php if (get_user_login('role_login_id') == 2) { ?>
+                                                <th width="150px">Status</th>
+                                                <?php } ?>
+                                                <th width="50px">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -53,27 +48,25 @@
                                         $no = 1;
                                         $q = mysqli_query($conn, "SELECT * FROM invoices 
                                                                 JOIN customers ON invoices.customer_id=customers.id
-                                                                WHERE invoices.deleted_at IS NULL AND invoices.product_id='PRODUCT001'");
+                                                                WHERE invoices.deleted_at IS NULL AND invoices.product_id='PRODUCT001'
+                                                                ORDER BY invoices.updated_at DESC");
                                         while($data=mysqli_fetch_array($q)){ ?>
                                             <tr>
                                                 <td><?= $no ?></td>
                                                 <td><span class="badge badge-success"><?= $data[0] ?></span></td>
-                                                <td><?= !empty($data['invoice_contract_no']) ? $data['invoice_contract_no'] : '-' ?></td>
-                                                <td><?= !empty($data['invoice_record_no']) ? $data['invoice_record_no'] : '-' ?></td>
-                                                <td><?= !empty($data['customer_name']) ? $data['customer_name'] : '-' ?></td>
                                                 <td><?= !empty($data['invoice_date']) ? date_ind($data['invoice_date']) : '-' ?></td>
-                                                <td><?= description($data[0], $data['product_id']) ?></td>
-                                                <td><?= !empty($data['invoice_total_hour']) ? $data['invoice_total_hour'] : '-' ?></td>
-                                                <td><?= !empty($data['invoice_price_hour']) ? $data['invoice_price_hour'] : '-' ?></td>
-                                                <td><?= !empty($data['invoice_total']) ? rupiah($data['invoice_total']) : '-' ?></td>
-                                                <td><?= !empty($data['invoice_total']) ? rupiah($data['invoice_total']) : '-' ?></td>
-                                                <td><?= !empty($data['invoice_vat']) ? rupiah($data['invoice_vat']) : '-' ?></td>
-                                                <td><?= !empty($data['invoice_discount']) ? rupiah($data['invoice_discount']) : '-' ?></td>
-                                                <td><?= !empty($data['invoice_amount']) ? rupiah($data['invoice_amount']) : '-' ?></td>
-                                                <td><?= !empty($data['invoice_calculated']) ? strtoupper($data['invoice_calculated']) : '-' ?></td>
+                                                <td><?= !empty($data['customer_name']) ? $data['customer_name'] : '-' ?></td>
+                                                <td><?= desc_invoices_log($data[0]) ?></td>
+                                                <?php if (get_user_login('role_login_id') == 2) { ?>
+                                                    <td>
+                                                    <?= approved_select($data[0]) ?>
+                                                    </td>
+                                                <?php } ?>
                                                 <td>
-                                                    <a href="?page=invoiceedit1&id=<?= $data[0] ?>" class="btn btn-info btn-sm btn-block"><i class="fa fa-edit"></i> edit</a>
-                                                    <a href="<?= $data['invoice_file'] ?>" target="_blank" class="btn btn-success btn-sm btn-block"><i class="fa fa-sticky-note"></i> lihat invoice</a>
+                                                    <?php if ($data['auth_login_id'] == get_user_login(0)) { ?>
+                                                        <a href="?page=invoiceedit1&id=<?= $data[0] ?>" class="btn btn-info btn-sm mb-1"><i class="fa fa-edit"></i> edit</a>
+                                                    <?php } ?>
+                                                    <a href="?page=invoiceprint&id=<?= $data[0] ?>&date=<?= $data['invoice_date'] ?>&pid=<?= $data['product_id'] ?>" target="_blank" class="btn btn-success btn-sm mb-1"><i class="fa fa-print"></i> print</a>
                                                 </td>
                                             </tr>
                                         <?php $no++; } ?>
@@ -81,22 +74,15 @@
                                     </table>
                                 </div>
                                 <div id="produk2" class="col-md-12">
-                                    <table class="example table table-responsive table-bordered table-striped">
+                                    <table class="example table <?= count_table_invoice('PRODUCT002') ? 'table-responsive' : '' ?> table-bordered table-striped">
                                         <thead>
                                             <tr>
                                                 <th>No</th>
                                                 <th>ID</th>
-                                                <th>Contract No</th>
-                                                <th>Record No</th>
+                                                <th>Date</th>
                                                 <th>Customer</th>
-                                                <th>Tanggal</th>
-                                                <th>Deskripsi</th>
-                                                <th>Price</th>
-                                                <th>Total</th>
-                                                <th>PPN 10%</th>
-                                                <th>Total Invoice Amount</th>
-                                                <th>Terbilang</th>
-                                                <th>Aksi</th>
+                                                <th width="400px">Information Change</th>
+                                                <th width="50px">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -109,19 +95,14 @@
                                             <tr>
                                                 <td><?= $no ?></td>
                                                 <td><span class="badge badge-success"><?= $data[0] ?></span></td>
-                                                <td><?= !empty($data['invoice_contract_no']) ? $data['invoice_contract_no'] : '-' ?></td>
-                                                <td><?= !empty($data['invoice_record_no']) ? $data['invoice_record_no'] : '-' ?></td>
-                                                <td><?= !empty($data['customer_name']) ? $data['customer_name'] : '-' ?></td>
                                                 <td><?= !empty($data['invoice_date']) ? date_ind($data['invoice_date']) : '-' ?></td>
-                                                <td><?= description($data[0], $data['product_id']) ?></td>
-                                                <td><?= !empty($data['invoice_total']) ? rupiah($data['invoice_total']) : '-' ?></td>
-                                                <td><?= !empty($data['invoice_total']) ? rupiah($data['invoice_total']) : '-' ?></td>
-                                                <td><?= !empty($data['invoice_ppn']) ? rupiah($data['invoice_ppn']) : '-' ?></td>
-                                                <td><?= !empty($data['invoice_amount']) ? rupiah($data['invoice_amount']) : '-' ?></td>
-                                                <td><?= !empty($data['invoice_calculated']) ? strtoupper($data['invoice_calculated']) : '-' ?></td>
+                                                <td><?= !empty($data['customer_name']) ? $data['customer_name'] : '-' ?></td>
+                                                <td><?= desc_invoices_log($data[0]) ?></td>
                                                 <td>
-                                                    <a href="?page=invoiceedit2&id=<?= $data[0] ?>" class="btn btn-info btn-sm btn-block"><i class="fa fa-edit"></i> edit</a>
-                                                    <a href="<?= $data['invoice_file'] ?>" target="_blank" class="btn btn-success btn-sm btn-block"><i class="fa fa-sticky-note"></i> lihat invoice</a>
+                                                    <?php if ($data['auth_login_id'] == get_user_login(0)) { ?>
+                                                        <a href="?page=invoiceedit2&id=<?= $data[0] ?>" class="btn btn-info btn-sm mb-1"><i class="fa fa-edit"></i> edit</a>
+                                                    <?php } ?>
+                                                    <a href="?page=invoiceprint&id=<?= $data[0] ?>&date=<?= $data['invoice_date'] ?>&pid=<?= $data['product_id'] ?>" target="_blank" class="btn btn-success btn-sm mb-1"><i class="fa fa-print"></i> print</a>
                                                 </td>
                                             </tr>
                                         <?php $no++; } ?>
@@ -129,22 +110,15 @@
                                     </table>
                                 </div>
                                 <div id="produk3" class="col-md-12">
-                                    <table class="example table table-responsive table-bordered table-striped">
+                                    <table class="example table <?= count_table_invoice('PRODUCT003') ? 'table-responsive' : '' ?> table-bordered table-striped">
                                         <thead>
                                             <tr>
                                                 <th>No</th>
                                                 <th>ID</th>
-                                                <th>Contract No</th>
-                                                <th>Record No</th>
+                                                <th>Date</th>
                                                 <th>Customer</th>
-                                                <th>Tanggal</th>
-                                                <th>Deskripsi</th>
-                                                <th>Price</th>
-                                                <th>Total</th>
-                                                <th>VAT 10%</th>
-                                                <th>Total Invoice Amount</th>
-                                                <th>Terbilang</th>
-                                                <th>Aksi</th>
+                                                <th width="400px">Information Change</th>
+                                                <th width="50px">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -157,19 +131,14 @@
                                             <tr>
                                                 <td><?= $no ?></td>
                                                 <td><span class="badge badge-success"><?= $data[0] ?></span></td>
-                                                <td><?= !empty($data['invoice_contract_no']) ? $data['invoice_contract_no'] : '-' ?></td>
-                                                <td><?= !empty($data['invoice_record_no']) ? $data['invoice_record_no'] : '-' ?></td>
-                                                <td><?= !empty($data['customer_name']) ? $data['customer_name'] : '-' ?></td>
                                                 <td><?= !empty($data['invoice_date']) ? date_ind($data['invoice_date']) : '-' ?></td>
-                                                <td><?= description($data[0], $data['product_id']) ?></td>
-                                                <td><?= !empty($data['invoice_total']) ? rupiah($data['invoice_total']) : '-' ?></td>
-                                                <td><?= !empty($data['invoice_total']) ? rupiah($data['invoice_total']) : '-' ?></td>
-                                                <td><?= !empty($data['invoice_vat']) ? rupiah($data['invoice_vat']) : '-' ?></td>
-                                                <td><?= !empty($data['invoice_amount']) ? rupiah($data['invoice_amount']) : '-' ?></td>
-                                                <td><?= !empty($data['invoice_calculated']) ? strtoupper($data['invoice_calculated']) : '-' ?></td>
+                                                <td><?= !empty($data['customer_name']) ? $data['customer_name'] : '-' ?></td>
+                                                <td><?= desc_invoices_log($data[0]) ?></td>
                                                 <td>
-                                                    <a href="?page=invoiceedit3&id=<?= $data[0] ?>" class="btn btn-info btn-sm btn-block"><i class="fa fa-edit"></i> edit</a>
-                                                    <a href="<?= $data['invoice_file'] ?>" target="_blank" class="btn btn-success btn-sm btn-block"><i class="fa fa-sticky-note"></i> lihat invoice</a>
+                                                    <?php if ($data['auth_login_id'] == get_user_login(0)) { ?>
+                                                        <a href="?page=invoiceedit3&id=<?= $data[0] ?>" class="btn btn-info btn-sm mb-1"><i class="fa fa-edit"></i> edit</a>
+                                                    <?php } ?>
+                                                    <a href="?page=invoiceprint&id=<?= $data[0] ?>&date=<?= $data['invoice_date'] ?>&pid=<?= $data['product_id'] ?>" target="_blank" class="btn btn-success btn-sm mb-1"><i class="fa fa-print"></i> print</a>
                                                 </td>
                                             </tr>
                                         <?php $no++; } ?>
@@ -177,24 +146,15 @@
                                     </table>
                                 </div>
                                 <div id="produk4" class="col-md-12">
-                                    <table class="example table table-responsive table-bordered table-striped">
+                                    <table class="example table <?= count_table_invoice('PRODUCT004') ? 'table-responsive' : '' ?> table-bordered table-striped">
                                         <thead>
                                             <tr>
                                                 <th>No</th>
                                                 <th>ID</th>
-                                                <th>Contract No</th>
-                                                <th>Record No</th>
+                                                <th>Date</th>
                                                 <th>Customer</th>
-                                                <th>Tanggal</th>
-                                                <th>Deskripsi</th>
-                                                <th>Price</th>
-                                                <th>Total</th>
-                                                <th>VAT 10%</th>
-                                                <th>PSC</th>
-                                                <th>IWJR</th>
-                                                <th>Total Invoice Amount</th>
-                                                <th>Terbilang</th>
-                                                <th>Aksi</th>
+                                                <th width="400px">Information Change</th>
+                                                <th width="50px">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -207,21 +167,14 @@
                                             <tr>
                                                 <td><?= $no ?></td>
                                                 <td><span class="badge badge-success"><?= $data[0] ?></span></td>
-                                                <td><?= !empty($data['invoice_contract_no']) ? $data['invoice_contract_no'] : '-' ?></td>
-                                                <td><?= !empty($data['invoice_record_no']) ? $data['invoice_record_no'] : '-' ?></td>
-                                                <td><?= !empty($data['customer_name']) ? $data['customer_name'] : '-' ?></td>
                                                 <td><?= !empty($data['invoice_date']) ? date_ind($data['invoice_date']) : '-' ?></td>
-                                                <td><?= description($data[0], $data['product_id']) ?></td>
-                                                <td><?= !empty($data['invoice_total']) ? rupiah($data['invoice_total']) : '-' ?></td>
-                                                <td><?= !empty($data['invoice_total']) ? rupiah($data['invoice_total']) : '-' ?></td>
-                                                <td><?= !empty($data['invoice_vat']) ? rupiah($data['invoice_vat']) : '-' ?></td>
-                                                <td><?= !empty($data['invoice_psc']) ? rupiah($data['invoice_psc']) : '-' ?></td>
-                                                <td><?= !empty($data['invoice_iwjr']) ? rupiah($data['invoice_iwjr']) : '-' ?></td>
-                                                <td><?= !empty($data['invoice_amount']) ? rupiah($data['invoice_amount']) : '-' ?></td>
-                                                <td><?= !empty($data['invoice_calculated']) ? strtoupper($data['invoice_calculated']) : '-' ?></td>
+                                                <td><?= !empty($data['customer_name']) ? $data['customer_name'] : '-' ?></td>
+                                                <td><?= desc_invoices_log($data[0]) ?></td>
                                                 <td>
-                                                    <a href="?page=invoiceedit4&id=<?= $data[0] ?>" class="btn btn-info btn-sm btn-block"><i class="fa fa-edit"></i> edit</a>
-                                                    <a href="<?= $data['invoice_file'] ?>" target="_blank" class="btn btn-success btn-sm btn-block"><i class="fa fa-sticky-note"></i> lihat invoice</a>
+                                                    <?php if ($data['auth_login_id'] == get_user_login(0)) { ?>
+                                                        <a href="?page=invoiceedit4&id=<?= $data[0] ?>" class="btn btn-info btn-sm mb-1"><i class="fa fa-edit"></i> edit</a>
+                                                    <?php } ?>
+                                                    <a href="?page=invoiceprint&id=<?= $data[0] ?>&date=<?= $data['invoice_date'] ?>&pid=<?= $data['product_id'] ?>" target="_blank" class="btn btn-success btn-sm mb-1"><i class="fa fa-print"></i> print</a>
                                                 </td>
                                             </tr>
                                         <?php $no++; } ?>
@@ -236,7 +189,7 @@
         </div>
     </div>
 </main>
-<script>
+<script type="text/javascript">
 $(document).ready(function(){
     $('#btn1').addClass('disabled');
     $('#produk2,#produk3,#produk4').hide();
@@ -269,4 +222,24 @@ $(document).ready(function(){
         $('#produk1,#produk2,#produk3').hide();
     });
 });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#approved').change(function(){
+            var $option = $(this).find('option:selected');
+            var value = $option.val();
+            var data = $('')
+            $.ajax({
+                url: 'config/approved_invoice.php',
+                tyle: 'post',
+                data: { 'data': value },
+                success: function(res) {
+                    location.reload(true);
+                },
+                error: function(err) {
+                    console.log(err)
+                }
+            });
+        });
+    });
 </script>

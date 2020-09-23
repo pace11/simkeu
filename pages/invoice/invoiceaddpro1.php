@@ -61,13 +61,9 @@
                                             $tujuan         = strtolower($_POST['tujuan']);
                                             $discount       = $_POST['discount'];
 
-
                                             $filename = str_replace(['-','/'], ['',''],$id_invoice).'.pdf';
                                             $dir = strtoupper(date('F_Y', strtotime($_POST['invoice_date'])));
                                             $exist_dir = "file/".$dir;
-                                            // if (!file_exists($exist_dir)) {
-                                            //     mkdir("file/".$dir, 0777);
-                                            // }
 
                                             $invoice_file   = $exist_dir.'/'.$filename;
                                             $total          = intval($_POST['total_amount']);
@@ -104,12 +100,6 @@
                                                         created_at              = '$created_at',
                                                         updated_at              = '$updated_at'") or die (mysqli_error($conn));
                                             
-                                            // $html = file_get_contents(url_file()."/crg.php?id=$id_invoice");
-                                            // $dompdf->loadHtml($html);
-                                            // $dompdf->setPaper('A4', 'portrait');
-                                            // $dompdf->render();
-                                            // $output = $dompdf->output();
-                                            // $file_put = file_put_contents($exist_dir.'/'.$filename, $output);  
                                             
                                             if ($insert){
                                                 echo    '<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Berhasil!</strong> Data telah tersimpan.'.

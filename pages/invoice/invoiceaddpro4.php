@@ -62,9 +62,6 @@
                                             $filename = str_replace(['-','/'], ['',''],$id_invoice).'.pdf';
                                             $dir = strtoupper(date('F_Y', strtotime($_POST['invoice_date'])));
                                             $exist_dir = "file/".$dir;
-                                            if (!file_exists($exist_dir)) {
-                                                mkdir("file/".$dir, 0777);
-                                            }
 
                                             $invoice_file   = $exist_dir.'/'.$filename;
                                             $total          = intval($_POST['total_amount']);
@@ -76,35 +73,6 @@
 
                                             $created_at = date('Y-m-d H:i:s');
                                             $updated_at = date('Y-m-d H:i:s');
-
-                                            $data_json = [
-                                                "id" => $id_invoice,
-                                                "auth_login_id" => $user,
-                                                "customer_id" => $customer,
-                                                "product_id" => $product,
-                                                "invoice_number" => $invoice_number,
-                                                "invoice_contract_no" => $contract ? $contract : '-',
-                                                "invoice_record_no" => $record ? $record : '-',
-                                                "invoice_date" => $invoice_date ? $invoice_date : '-',
-                                                "invoice_total_hour" => $total_hour ? $total_hour : '-',
-                                                "invoice_price_hour" => $price_hour ? $price_hour : '-',
-                                                "invoice_note" => $note ? $note : '-',
-                                                "invoice_date_period_1" => $date1 ? $date1 : '-',
-                                                "invoice_date_period_2" => $date2 ? $date2 : '-',
-                                                "invoice_route_from" => $asal ? $asal : '-',
-                                                "invoice_route_to" => $tujuan ? $tujuan : '-',
-                                                "invoice_calculated" => $terbilang ? $terbilang : '-',
-                                                "invoice_total" => $total ? $total : '-',
-                                                "invoice_vat" => $vat ? $vat : '-',
-                                                "invoice_iwjr" => $iwjr ? $iwjr : '-',
-                                                "invoice_psc" => $psc ? $psc : '-',
-                                                "invoice_amount" => $amount ? $amount : '-',
-                                                "invoice_file" => $invoice_file,
-                                                "created_at" => $created_at,
-                                                "updated_at" => $updated_at
-                                            ];
-
-                                            $data_json_final = json_encode($data_json);
                     
                                             $insert = mysqli_query($conn, "INSERT INTO invoices SET
                                                         id                      = '$id_invoice',
@@ -131,23 +99,8 @@
                                                         invoice_file            = '$invoice_file',
                                                         created_at              = '$created_at',
                                                         updated_at              = '$updated_at'") or die (mysqli_error($conn));
-
-                                            $insert2 = mysqli_query($conn, "INSERT INTO invoices_log SET
-                                                        invoice_id              = '$id_invoice',
-                                                        invoice_log_data        = '$data_json_final',
-                                                        invoice_log_status      = 'T',
-                                                        invoice_log_filled      = 'T',
-                                                        created_at              = '$created_at',
-                                                        updated_at              = '$updated_at'") or die (mysqli_error($conn));
                                             
-                                            $html = file_get_contents(url_file()."/ticket.php?id=$id_invoice");
-                                            $dompdf->loadHtml($html);
-                                            $dompdf->setPaper('A4', 'portrait');
-                                            $dompdf->render();
-                                            $output = $dompdf->output();
-                                            $file_put = file_put_contents($exist_dir.'/'.$filename, $output);   
-                                            
-                                            if ($insert && $insert2 && $file_put){
+                                            if ($insert){
                                                 echo    '<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Berhasil!</strong> Data telah tersimpan.'.
                                                             '<button class="close" type="button" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>'.
                                                         '</div>';

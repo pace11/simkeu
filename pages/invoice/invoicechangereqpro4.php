@@ -39,7 +39,6 @@
                                                     "invoice_total_hour" => $get['invoice_total_hour'] ? $get['invoice_total_hour'] : '-',
                                                     "invoice_price_hour" => $get['invoice_price_hour'] ? $get['invoice_price_hour'] : '-',
                                                     "invoice_note" => $get['invoice_note'] ? $get['invoice_note'] : '-',
-                                                    "invoice_weight" => $get['invoice_weight'] ? $get['invoice_weight'] : '-',
                                                     "invoice_date_period_1" => $get['invoice_date_period_1'] ? $get['invoice_date_period_1'] : '-',
                                                     "invoice_date_period_2" => $get['invoice_date_period_2'] ? $get['invoice_date_period_2'] : '-',
                                                     "invoice_route_from" => $get['invoice_route_from'] ? $get['invoice_route_from'] : '-',
@@ -47,8 +46,9 @@
                                                     "invoice_calculated" => $get['invoice_calculated'] ? $get['invoice_calculated'] : '-',
                                                     "invoice_total" => $get['invoice_total'] ? $get['invoice_total'] : '-',
                                                     "invoice_vat" => $get['invoice_vat'] ? $get['invoice_vat'] : '-',
+                                                    "invoice_iwjr" => $get['invoice_iwjr'] ? $get['invoice_iwjr'] : '-',
+                                                    "invoice_psc" => $get['invoice_psc'] ? $get['invoice_psc'] : '-',
                                                     "invoice_amount" => $get['invoice_amount'] ? $get['invoice_amount'] : '-',
-                                                    "invoice_discount" => $get['invoice_discount'] ? $get['invoice_discount'] : '-',
                                                     "invoice_file" => $get['invoice_file'],
                                                     "created_at" => $get['created_at'],
                                                     "updated_at" => $get['updated_at']

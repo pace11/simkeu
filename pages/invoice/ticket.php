@@ -9,10 +9,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Cargo Invoice</title>
+    <title>Ticket Invoice</title>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap" rel="stylesheet">
     <style>
         body {
-            font-size: 8pt;
+            font-size: 9pt;
         }
         table {
             width: 100%;
@@ -35,9 +36,9 @@
         <div style="text-align: right;height: 100px;">
             <img src="dist/assets/img/logo.jpg" style="position: absolute;left: 10px;width: 120px;margin:-20px 0 0 0;" />
             <h1 style="padding:0;margin:0;">PT SEMUWA DIRGANTARA</h1>
-            <p style="padding:0;margin:0;">Jl. Yabaso Kompleks Pergudangan Kelas 1A Sentani</p>
-            <p style="padding:0;margin:0;">Telp/Fax : (0967) 591915, Telp: 0811484040</p>
-            <p style="padding:0;margin:0;">Sentani, Jayapura</p>
+            <p style="font-family: 'Archivo Narrow',sans-serif;line-height:1.5;padding:0;margin:0;">Jl. Yabaso Kompleks Pergudangan Kelas 1A Sentani</p>
+            <p style="font-family: 'Archivo Narrow',sans-serif;line-height:1.5;padding:0;margin:0;">Telp/Fax : (0967) 591915, Telp: 0811484040</p>
+            <p style="font-family: 'Archivo Narrow',sans-serif;line-height:1.5;padding:0;margin:0;">Sentani, Jayapura</p>
         </div>
         <table>
             <tr>
@@ -49,31 +50,47 @@
                 </td>
             </tr>
         </table>
-        <table style="margin:0 0 20px 0;">
+        <table style="margin:0 0 50px 0;">
             <tr>
                 <td style="width: 50%;padding: 5px;">
-                    <p style="margin:0 0 5px 0; padding: 0;text-align: left;">Invoice To</p>
-                    <p style="margin:0; padding: 0;text-align: left;font-size: 12px;"><?= $data['customer_name'] ? $data['customer_name'] : '-'  ?></p>
-                    <p style="margin:0; padding: 0;text-align: left;font-size: 12px;"><?= $data['customer_address'] ? $data['customer_address'] : '-'  ?></p>
-                    <p style="margin:0; padding: 0;text-align: left;font-size: 12px;"><?= $data['customer_phone'] ? $data['customer_phone'] : '-'  ?></p>
+                    <p style="font-family: 'Archivo Narrow',sans-serif;line-height:1.5;margin:0 0 5px 0; padding: 0;text-align: left;">Invoice To</p>
+                    <p style="font-family: 'Archivo Narrow',sans-serif;line-height:1.5;margin:0; padding: 0;text-align: left;font-size: 12px;"><?= $data['customer_name'] ? $data['customer_name'] : '-'  ?></p>
+                    <p style="font-family: 'Archivo Narrow',sans-serif;line-height:1.5;margin:0; padding: 0;text-align: left;font-size: 12px;"><?= $data['customer_address'] ? $data['customer_address'] : '-'  ?></p>
+                    <p style="font-family: 'Archivo Narrow',sans-serif;line-height:1.5;margin:0; padding: 0;text-align: left;font-size: 12px;"><?= $data['customer_phone'] ? $data['customer_phone'] : '-'  ?></p>
                 </td>
                 <td style="width: 50%;">
                     <table>
                         <tr>
-                            <td><p style="margin:0; padding: 0;text-align: left;font-size: 12px;">Invoice ID</p></td>
-                            <td>: <?= $data['invoice_number_rev'] ? 'REV'.$data['invoice_number_rev'].'-'.$data[0] : $data[0] ?></td>
+                            <td><p style="font-family: 'Archivo Narrow',sans-serif;line-height:1.5;margin:0; padding: 0;text-align: left;font-size: 12px;">Invoice ID</p></td>
+                            <td>
+                                <p style="font-family: 'Archivo Narrow',sans-serif;line-height:1.5;padding:0;margin:0;">
+                                : <?= $data['invoice_number_rev'] ? 'REV'.$data['invoice_number_rev'].'-'.$data[0] : $data[0] ?>
+                                </p>
+                            </td>
                         </tr>
                         <tr>
-                            <td><p style="margin:0; padding: 0;text-align: left;font-size: 12px;">Date</p></td>
-                            <td>: <?= date_ind($data['invoice_date']) ?></td>
+                            <td><p style="font-family: 'Archivo Narrow',sans-serif;line-height:1.5;margin:0; padding: 0;text-align: left;font-size: 12px;">Date</p></td>
+                            <td>
+                                <p style="font-family: 'Archivo Narrow',sans-serif;line-height:1.5;padding:0;margin:0;">
+                                : <?= date_ind($data['invoice_date']) ?>
+                                </p>
+                            </td>
                         </tr>
                         <tr>
-                            <td><p style="margin:0; padding: 0;text-align: left;font-size: 12px;">Cargo Contract No</p></td>
-                            <td>: <?= $data['invoice_contract_no'] ? $data['invoice_contract_no'] : '-' ?></td>
+                            <td><p style="font-family: 'Archivo Narrow',sans-serif;line-height:1.5;margin:0; padding: 0;text-align: left;font-size: 12px;">Cargo Contract No</p></td>
+                            <td>
+                                <p style="font-family: 'Archivo Narrow',sans-serif;line-height:1.5;padding:0;margin:0;">
+                                : <?= $data['invoice_contract_no'] ? $data['invoice_contract_no'] : '-' ?>
+                                </p>
+                            </td>
                         </tr>
                         <tr>
-                            <td><p style="margin:0; padding: 0;text-align: left;font-size: 12px;">Flight Record No</p></td>
-                            <td>: <?= $data['invoice_record_no'] ? $data['invoice_record_no'] : '-' ?></td>
+                            <td><p style="font-family: 'Archivo Narrow',sans-serif;line-height:1.5;margin:0; padding: 0;text-align: left;font-size: 12px;">Flight Record No</p></td>
+                            <td>
+                                <p style="font-family: 'Archivo Narrow',sans-serif;line-height:1.5;padding:0;margin:0;">
+                                : <?= $data['invoice_record_no'] ? $data['invoice_record_no'] : '-' ?>
+                                </p>
+                            </td>
                         </tr>
                     </table>
                 </td>
@@ -82,83 +99,99 @@
         <table>
             <tr>
                 <td style="width: 5%; border:1px solid #000;padding: 5px;">
-                    <p style="margin:0; padding: 0;text-align: center;">ITEM NO</p>
+                    <p style="font-family: 'Archivo Narrow',sans-serif;line-height:1.5;margin:0; padding: 0;text-align: center;">ITEM NO</p>
                 </td>
                 <td style="width: 35%; border:1px solid #000;padding: 5px;">
-                    <p style="margin:0; padding: 0;text-align: center;">DESCRIPTION</p>
+                    <p style="font-family: 'Archivo Narrow',sans-serif;line-height:1.5;margin:0; padding: 0;text-align: center;">DESCRIPTION</p>
                 </td>
-                <td style="width: 20%; border:1px solid #000;padding: 5px;background: #fab1a0;">
-                    <p style="margin:0; padding: 0;text-align: center;">TOTAL HOUR</p>
+                <td style="width: 20%; border:1px solid #000;padding: 5px;">
+                    <p style="font-family: 'Archivo Narrow',sans-serif;line-height:1.5;margin:0; padding: 0;text-align: center;">TOTAL HOUR</p>
                 </td>
-                <td style="width: 20%; border:1px solid #000;padding: 5px;background: #fab1a0;">
-                    <p style="margin:0; padding: 0;text-align: center;">PRICE PER HOUR</p>
+                <td style="width: 20%; border:1px solid #000;padding: 5px;">
+                    <p style="font-family: 'Archivo Narrow',sans-serif;line-height:1.5;margin:0; padding: 0;text-align: center;">PRICE PER HOUR</p>
                 </td>
-                <td style="width: 20%; border:1px solid #000;padding: 5px;background: #fab1a0;">
-                    <p style="margin:0; padding: 0;text-align: center;">EXTENDED PRICE</p>
+                <td style="width: 20%; border:1px solid #000;padding: 5px;">
+                    <p style="font-family: 'Archivo Narrow',sans-serif;line-height:1.5;margin:0; padding: 0;text-align: center;">EXTENDED PRICE</p>
                 </td>
             </tr>
             <tr>
                 <td style="width: 5%; border:1px solid #000;padding: 5px;">
-                    <p style="margin:0; padding: 0;text-align: center;">1.</p>
+                    <p style="font-family: 'Archivo Narrow',sans-serif;line-height:1.5;margin:0; padding: 0;text-align: center;">1.</p>
                 </td>
                 <td style="width: 35%; border:1px solid #000;padding: 5px;">
-                    <p style="margin:0; padding: 0;text-align: left;text-transform:uppercase;"><?= $data['invoice_note'] ?></p>
-                    <p style="margin:0; padding: 0;text-align: left;text-transform:uppercase;">ROUTE: <?= $data['invoice_route_from'].' - '.$data['invoice_route_from'] ?></p>
-                    <p style="margin:0; padding: 0;text-align: left;text-transform:uppercase;">PERIODE: <?= date('d', strtotime($data['invoice_date_period_1'])).' - '.date_ind($data['invoice_date_period_2']) ?></p>
-                    <p style="margin:0; padding: 0;text-align: left;text-transform:uppercase;">SEBESAR ...</p>
+                    <p style="font-family: 'Archivo Narrow',sans-serif;line-height:1.5;margin:0; padding: 0;text-align: left;text-transform:uppercase;"><?= $data['invoice_note'] ?></p>
+                    <p style="font-family: 'Archivo Narrow',sans-serif;line-height:1.5;margin:0; padding: 0;text-align: left;text-transform:uppercase;">ROUTE: <?= $data['invoice_route_from'].' - '.$data['invoice_route_from'] ?></p>
+                    <p style="font-family: 'Archivo Narrow',sans-serif;line-height:1.5;margin:0; padding: 0;text-align: left;text-transform:uppercase;">PERIODE: <?= date('d', strtotime($data['invoice_date_period_1'])).' - '.date_ind($data['invoice_date_period_2']) ?></p>
+                    <p style="font-family: 'Archivo Narrow',sans-serif;line-height:1.5;margin:0; padding: 0;text-align: left;text-transform:uppercase;">SEBESAR ...</p>
                 </td>
                 <td style="width: 20%; border:1px solid #000;padding: 5px;">
-                    <p style="margin:0; padding: 0;text-align: center;vertical-align: bottom;text-transform:uppercase;"><?= $data['invoice_total_hour'] ?> HOURS</p>
+                    <p style="font-family: 'Archivo Narrow',sans-serif;line-height:1.5;margin:0; padding: 0;text-align: center;vertical-align: bottom;text-transform:uppercase;"><?= $data['invoice_total_hour'] ?> HOURS</p>
                 </td>
                 <td style="width: 20%; border:1px solid #000;padding: 5px;">
-                    <p style="margin:0; padding: 0;text-align: center;vertical-align: bottom;text-transform:uppercase;"><?= $data['invoice_price_hour'] ?></p>
+                    <p style="font-family: 'Archivo Narrow',sans-serif;line-height:1.5;margin:0; padding: 0;text-align: center;vertical-align: bottom;text-transform:uppercase;"><?= $data['invoice_price_hour'] ?></p>
                 </td>
                 <td style="width: 20%; border:1px solid #000;padding: 5px;">
-                    <p style="margin:0; padding: 0;text-align: right;text-transform:uppercase;"><?= rupiah($data['invoice_total']) ?></p>
+                    <p style="font-family: 'Archivo Narrow',sans-serif;line-height:1.5;margin:0; padding: 0;text-align: right;text-transform:uppercase;"><?= rupiah($data['invoice_total']) ?></p>
                 </td>
             </tr>
         </table>
         <table>
             <tr>
                 <td style="width: 50%; border-top:1px solid #000;border-left:1px solid #000;border-bottom:1px solid #000;border-right:0;padding: 5px;">
-                    <p style="margin:0; padding: 0;text-align: left;text-transform:uppercase;">TERBILANG: # <?= $data['invoice_calculated'] ?> #</p>
+                    <p style="font-family: 'Archivo Narrow',sans-serif;line-height:1.5;margin:0; padding: 0;text-align: left;text-transform:uppercase;">TERBILANG: # <?= $data['invoice_calculated'] ?> #</p>
                 </td>
-                <td style="width: 30%; border-top:1px solid #000;border-right:1px solid #000;border-bottom:1px solid #000;border-left:0;padding: 5px;">
-                    <p style="margin:0; padding: 0;text-align: right;">TOTAL</p>
-                    <p style="margin:0; padding: 0;text-align: right;">VAT 10%</p>
-                    <p style="margin:0; padding: 0;text-align: right;">PSC</p>
-                    <p style="margin:0; padding: 0;text-align: right;">IWJR</p>
-                    <p style="margin:0; padding: 0;text-align: right;">TOTAL INVOICE AMOUNT</p>
+                <td style="width: 30.6%; border-top:1px solid #000;border-right:1px solid #000;border-bottom:1px solid #000;border-left:0;padding: 5px;">
+                    <p style="font-family: 'Archivo Narrow',sans-serif;line-height:1.5;margin:0; padding: 0;text-align: right;">TOTAL</p>
+                    <p style="font-family: 'Archivo Narrow',sans-serif;line-height:1.5;margin:0; padding: 0;text-align: right;">VAT 10%</p>
+                    <p style="font-family: 'Archivo Narrow',sans-serif;line-height:1.5;margin:0; padding: 0;text-align: right;">PSC</p>
+                    <p style="font-family: 'Archivo Narrow',sans-serif;line-height:1.5;margin:0; padding: 0;text-align: right;">IWJR</p>
+                    <p style="font-family: 'Archivo Narrow',sans-serif;line-height:1.5;margin:0; padding: 0;text-align: right;">TOTAL INVOICE AMOUNT</p>
                 </td>
-                <td style="width: 20%; border:1px solid #000;padding: 5px;">
-                    <p style="margin:0; padding: 0;text-align: right;"><?= $data['invoice_total'] ? rupiah($data['invoice_total']) : '-'  ?></p>
-                    <p style="margin:0; padding: 0;text-align: right;"><?= $data['invoice_vat'] ? rupiah($data['invoice_vat']) : '-' ?></p>
-                    <p style="margin:0; padding: 0;text-align: right;"><?= $data['invoice_psc'] ? rupiah($data['invoice_psc']) : '-' ?></p>
-                    <p style="margin:0; padding: 0;text-align: right;"><?= $data['invoice_iwjr'] ? rupiah($data['invoice_iwjr']) : '-' ?></p>
-                    <p style="margin:0; padding: 0;text-align: right;"><?= $data['invoice_amount'] ? rupiah($data['invoice_amount']) : '-' ?></p>
+                <td style="width: 19.4%; border:1px solid #000;padding: 5px;">
+                    <p style="font-family: 'Archivo Narrow',sans-serif;line-height:1.5;margin:0; padding: 0;text-align: right;"><?= $data['invoice_total'] ? rupiah($data['invoice_total']) : '-'  ?></p>
+                    <p style="font-family: 'Archivo Narrow',sans-serif;line-height:1.5;margin:0; padding: 0;text-align: right;"><?= $data['invoice_vat'] ? rupiah($data['invoice_vat']) : '-' ?></p>
+                    <p style="font-family: 'Archivo Narrow',sans-serif;line-height:1.5;margin:0; padding: 0;text-align: right;"><?= $data['invoice_psc'] ? rupiah($data['invoice_psc']) : '-' ?></p>
+                    <p style="font-family: 'Archivo Narrow',sans-serif;line-height:1.5;margin:0; padding: 0;text-align: right;"><?= $data['invoice_iwjr'] ? rupiah($data['invoice_iwjr']) : '-' ?></p>
+                    <p style="font-family: 'Archivo Narrow',sans-serif;line-height:1.5;margin:0; padding: 0;text-align: right;"><?= $data['invoice_amount'] ? rupiah($data['invoice_amount']) : '-' ?></p>
                 </td>
             </tr>
         </table>
-        <table style="width: 60%;margin:20px 0 0 0;">
+        <table style="width: 60%;margin:50px 0 0 0;">
             <tr>
                 <td>
-                    <p style="margin:0; padding: 0;text-align: left;font-size: 14px;font-weight: bold;">PAYMENT DETAIL</p>
+                    <p style="font-family: 'Archivo Narrow',sans-serif;line-height:1.5;margin:0; padding: 0;text-align: left;font-size: 14px;font-weight: bold;">PAYMENT DETAIL</p>
                     <table>
                         <tr>
-                            <td style="width: 50%;"><p style="margin:0; padding: 0;text-align: left;font-size: 12px;">BANK NAME</p></td>
-                            <td>: Bank Mandiri</td>
+                            <td style="width: 50%;"><p style="font-family: 'Archivo Narrow',sans-serif;line-height:1.5;margin:0; padding: 0;text-align: left;font-size: 12px;">BANK NAME</p></td>
+                            <td>
+                                <p style="font-family: 'Archivo Narrow',sans-serif;line-height:1.5;padding:0;margin:0;">
+                                : Bank Mandiri
+                                </p>
+                            </td>
                         </tr>
                         <tr>
-                            <td style="width: 50%;"><p style="margin:0; padding: 0;text-align: left;font-size: 12px;">BANK BRANCH</p></td>
-                            <td>: Sentani, Kab Jayapura</td>
+                            <td style="width: 50%;"><p style="font-family: 'Archivo Narrow',sans-serif;line-height:1.5;margin:0; padding: 0;text-align: left;font-size: 12px;">BANK BRANCH</p></td>
+                            <td>
+                                <p style="font-family: 'Archivo Narrow',sans-serif;line-height:1.5;padding:0;margin:0;">
+                                : Sentani, Kab Jayapura
+                                </p>
+                            </td>
                         </tr>
                         <tr>
-                            <td style="width: 50%;"><p style="margin:0; padding: 0;text-align: left;font-size: 12px;">BANK ACCOUNT NUMBER</p></td>
-                            <td>: 1540010795759</td>
+                            <td style="width: 50%;"><p style="font-family: 'Archivo Narrow',sans-serif;line-height:1.5;margin:0; padding: 0;text-align: left;font-size: 12px;">BANK ACCOUNT NUMBER</p></td>
+                            <td>
+                                <p style="font-family: 'Archivo Narrow',sans-serif;line-height:1.5;padding:0;margin:0;">
+                                : 1540010795759
+                                </p>
+                            </td>
                         </tr>
                         <tr>
-                            <td style="width: 50%;"><p style="margin:0; padding: 0;text-align: left;font-size: 12px;">BANK ACCOUNT NAME</p></td>
-                            <td>: PT SEMUWA DIRGANTARA</td>
+                            <td style="width: 50%;"><p style="font-family: 'Archivo Narrow',sans-serif;line-height:1.5;margin:0; padding: 0;text-align: left;font-size: 12px;">BANK ACCOUNT NAME</p></td>
+                            <td>
+                                <p style="font-family: 'Archivo Narrow',sans-serif;line-height:1.5;padding:0;margin:0;">
+                                : PT SEMUWA DIRGANTARA
+                                </p>
+                            </td>
                         </tr>
                     </table>
                 </td>
@@ -169,8 +202,8 @@
                 <td style="width: 50%;padding: 5px;">
                 </td>
                 <td style="width: 50%;text-align: center;">
-                    <p style="margin:-10px 0 0 0; padding: 0;font-size: 12px;font-weight:bold;">QORIS MADILLAH</p>
-                    <p style="margin:0; padding: 0;">Direktur</p>
+                    <p style="font-family: 'Archivo Narrow',sans-serif;line-height:1.5;margin:-10px 0 0 0; padding: 0;font-size: 12px;font-weight:bold;">QORIS MADILLAH</p>
+                    <p style="font-family: 'Archivo Narrow',sans-serif;line-height:1.5;margin:0; padding: 0;">Direktur</p>
                 </td>
             </tr>
         </table>

@@ -59,6 +59,9 @@ switch(get_user_login('role_login_id')) {
         //------------------------------------ INVOICE PRINT LOG ------------------------------------
         elseif ($page == 'invoiceprintlog')         include("pages/invoiceprintlog/invoiceprintlog.php");
 
+        //------------------------------------ INVOICE ARSIP LOG ------------------------------------
+        elseif ($page == 'invoicearsip')            include("pages/invoicearsip/invoicearsip.php");
+
         else include("pages/404.php");
     break;
     case 2:
@@ -107,6 +110,9 @@ switch(get_user_login('role_login_id')) {
         //------------------------------------ INVOICE ------------------------------------
         elseif ($page == 'invoice')                 include("pages/invoice/invoice.php");
         elseif ($page == 'invoiceprint')            include("pages/invoice/invoiceprint.php");
+
+        //------------------------------------ INVOICE ARSIP LOG ------------------------------------
+        elseif ($page == 'invoicearsip')            include("pages/invoicearsip/invoicearsip.php");
 
         else include("pages/404.php");
     break;

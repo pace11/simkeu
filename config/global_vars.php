@@ -235,4 +235,22 @@ function date_time($param) {
     return date_ind(date('Y-m-d', strtotime($param))).', Jam '.date('H:i:s', strtotime($param));
 }
 
+function history_arsip_invoice($param) {
+    include "connection.php";
+    $tmp = "";
+    $q = mysqli_query($conn, "SELECT * FROM invoices_log WHERE invoice_id='$param'");
+    $count = mysqli_num_rows($q);
+    if ($count > 0) {
+        $tmp = '<ol style="padding: 0;margin: 0 0 0 15px;">';
+        while($data=mysqli_fetch_array($q)) {
+            $get =json_decode($data['invoice_log_data']);
+            $tmp .='<li><p style="padding:0;margin:0;">REV'.$get->invoice_number_rev.'-'.$data['invoice_id'].' - '.date('d/M/Y', strtotime($data['updated_at'])).'<a href="" class="btn btn-success btn-sm m-1"><i class="fa fa-print"></i> print</a></p></li>';
+        }
+        $tmp .= '</ol>';
+    } else {
+        $tmp = '-';
+    }
+    return $tmp;
+}
+
 ?>

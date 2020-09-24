@@ -50,5 +50,12 @@
           </svg> Invoice Print Log</a>
       </li>
       <?php } ?>
+      <?php if (get_user_login('role_login_id') == 1 || get_user_login('role_login_id') == 2) { ?>
+      <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="?page=invoicearsip">
+          <svg class="c-sidebar-nav-icon">
+            <use xlink:href="./coreui/icons/sprites/free.svg#cil-file"></use>
+          </svg> Invoice Arsip Log</a>
+      </li>
+      <?php } ?>
     </ul>
 </div>

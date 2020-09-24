@@ -27,12 +27,24 @@
                                                 $q          = mysqli_query($conn, "SELECT * FROM invoices WHERE id='$id_inv'");
                                                 $get        = mysqli_fetch_array($q); 
 
+                                                $insert = mysqli_query($conn, "INSERT INTO invoices_log SET
+                                                                                invoice_id         = '$id_inv',
+                                                                                invoice_log_note   = '$note',
+                                                                                invoice_log_status = 'T',
+                                                                                invoice_log_filled = 'T',
+                                                                                created_at         = '$updated_at',
+                                                                                updated_at         = '$updated_at'") or die (mysqli_error($conn));
+                                                
+                                                $count_all  = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM invoices_log WHERE invoice_id='$id_inv'"));
+                                                $number_rev = $count_all < 10 ? '0'.$count_all : $count_all;
+
                                                 $data = [
                                                     "id" => $get['id'],
                                                     "auth_login_id" => $get['auth_login_id'],
                                                     "customer_id" => $get['customer_id'],
                                                     "product_id" => $get['product_id'],
                                                     "invoice_number" => $get['invoice_number'],
+                                                    "invoice_number_rev" => $number_rev,
                                                     "invoice_contract_no" => $get['invoice_contract_no'] ? $get['invoice_contract_no'] : '-',
                                                     "invoice_record_no" => $get['invoice_record_no'] ? $get['invoice_record_no'] : '-',
                                                     "invoice_date" => $get['invoice_date'] ? $get['invoice_date'] : '-',
@@ -54,18 +66,11 @@
                                                     "updated_at" => $get['updated_at']
                                                 ];
                                                 $data_json = json_encode($data);
-
-                                                $insert = mysqli_query($conn, "INSERT INTO invoices_log SET
-                                                                                invoice_id         = '$id_inv',
-                                                                                invoice_log_data   = '$data_json',
-                                                                                invoice_log_note   = '$note',
-                                                                                invoice_log_status = 'T',
-                                                                                invoice_log_filled = 'T',
-                                                                                created_at         = '$updated_at',
-                                                                                updated_at         = '$updated_at'") or die (mysqli_error($conn));
-
-                                                $count_all  = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM invoices_log WHERE invoice_id='$id_inv'"));
-                                                $number_rev = $count_all < 10 ? '0'.$count_all : $count_all;
+                                                $data_arr = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM invoices_log WHERE invoice_id='$id_inv' AND invoice_log_status='T' ORDER BY id DESC"));
+                                                
+                                                mysqli_query($conn, "UPDATE invoices_log SET
+                                                                    invoice_log_data    = '$data_json'
+                                                                    WHERE   id          = $data_arr[id]") or die (mysqli_error($conn));
                                                 
                                                 $insert2 = mysqli_query($conn, "UPDATE invoices SET
                                                                                 invoice_number_rev = '$number_rev'

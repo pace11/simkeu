@@ -52,9 +52,6 @@
                                                                 JOIN auth_login ON invoices.auth_login_id=auth_login.id
                                                                 WHERE invoices.deleted_at IS NULL AND invoices.product_id='PRODUCT001'
                                                                 ORDER BY invoices.updated_at DESC");
-                                        // echo '<pre>';
-                                        // print_r(mysqli_fetch_array($q));
-                                        // echo '</pre>';
                                         while($data=mysqli_fetch_array($q)){ ?>
                                             <tr>
                                                 <td><?= $no ?></td>
@@ -122,7 +119,7 @@
                                                     </td>
                                                 <?php } ?>
                                                 <td>
-                                                    <?php if ($data['auth_login_id'] == get_user_login(0) && get_user_login('role_login_id') != 5 && !$data['invoice_number_rev'] && $data['invoice_log_filled']) { ?>
+                                                    <?php if ($data['auth_login_id'] == get_user_login(0) && get_user_login('role_login_id') != 5 && $data['invoice_log_filled'] == 'T') { ?>
                                                         <a href="?page=invoiceedit2&id=<?= $data[0] ?>" class="btn btn-info btn-sm mb-1"><i class="fa fa-edit"></i> edit</a>
                                                     <?php } ?>
                                                     <a href="?page=invoiceprint&id=<?= $data[0] ?>&date=<?= $data['invoice_date'] ?>&pid=<?= $data['product_id'] ?>&type=T" class="btn btn-success btn-sm mb-1"><i class="fa fa-print"></i> print</a>
@@ -172,7 +169,7 @@
                                                     </td>
                                                 <?php } ?>
                                                 <td>
-                                                    <?php if ($data['auth_login_id'] == get_user_login(0) && get_user_login('role_login_id') != 5 && $data['invoice_log_filled'] != 'Y') { ?>
+                                                    <?php if ($data['auth_login_id'] == get_user_login(0) && get_user_login('role_login_id') != 5 && $data['invoice_log_filled'] == 'T') { ?>
                                                         <a href="?page=invoiceedit3&id=<?= $data[0] ?>" class="btn btn-info btn-sm mb-1"><i class="fa fa-edit"></i> edit</a>
                                                     <?php } ?>
                                                     <a href="?page=invoiceprint&id=<?= $data[0] ?>&date=<?= $data['invoice_date'] ?>&pid=<?= $data['product_id'] ?>&type=T" class="btn btn-success btn-sm mb-1"><i class="fa fa-print"></i> print</a>
@@ -222,7 +219,7 @@
                                                     </td>
                                                 <?php } ?>
                                                 <td>
-                                                    <?php if ($data['auth_login_id'] == get_user_login(0) && get_user_login('role_login_id') != 5 && !$data['invoice_number_rev'] && $data['invoice_log_filled']) { ?>
+                                                    <?php if ($data['auth_login_id'] == get_user_login(0) && get_user_login('role_login_id') != 5 && $data['invoice_log_filled'] == 'T') { ?>
                                                         <a href="?page=invoiceedit4&id=<?= $data[0] ?>" class="btn btn-info btn-sm mb-1"><i class="fa fa-edit"></i> edit</a>
                                                     <?php } ?>
                                                     <a href="?page=invoiceprint&id=<?= $data[0] ?>&date=<?= $data['invoice_date'] ?>&pid=<?= $data['product_id'] ?>&type=T" class="btn btn-success btn-sm mb-1"><i class="fa fa-print"></i> print</a>

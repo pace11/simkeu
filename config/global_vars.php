@@ -239,16 +239,19 @@ function history_arsip_invoice($param) {
     include "connection.php";
     $tmp = "";
     $q = mysqli_query($conn, "SELECT * FROM invoices_log WHERE invoice_id='$param'");
+    $q1 = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM invoices WHERE id='$param'"));
     $count = mysqli_num_rows($q);
     if ($count > 0) {
         $tmp = '<ol style="padding: 0;margin: 0 0 0 15px;">';
         while($data=mysqli_fetch_array($q)) {
-            $get =json_decode($data['invoice_log_data']);
-            $tmp .='<li><p style="padding:0;margin:0;">REV'.$get->invoice_number_rev.'-'.$data['invoice_id'].' - '.date('d/M/Y', strtotime($data['updated_at'])).'<a href="" class="btn btn-success btn-sm m-1"><i class="fa fa-print"></i> print</a></p></li>';
+            $get =json_decode($data['invoice_log_data'], true);
+            $tmp .='<li><p style="padding:0;margin:0;">REV.'.$get['invoice_number_rev'].'-'.$data['invoice_id'].' - '.date('d/M/Y', strtotime($data['updated_at'])).'<a href="?page=invoiceprint&id='.$data['invoice_id'].'&date='.$get['invoice_date'].'&pid='.$get['product_id'].'&type=L&idl='.$data['id'].'" class="btn btn-success btn-sm m-1"><i class="fa fa-print"></i> print</a></p></li>';
         }
         $tmp .= '</ol>';
     } else {
-        $tmp = '-';
+        $tmp = '<ol style="padding: 0;margin: 0 0 0 15px;">';
+        $tmp .='<li><p style="padding:0;margin:0;">'.$q1['id'].' - '.date('d/M/Y', strtotime($q1['updated_at'])).'<a href="?page=invoiceprint&id='.$q1['id'].'&date='.$q1['invoice_date'].'&pid='.$q1['product_id'].'&type=T&idl=T" class="btn btn-success btn-sm m-1"><i class="fa fa-print"></i> print</a></p></li>';
+        $tmp .= '</ol>';
     }
     return $tmp;
 }

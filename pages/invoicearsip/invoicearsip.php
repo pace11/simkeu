@@ -32,7 +32,7 @@
                                         while($data=mysqli_fetch_array($q)){ ?>
                                             <tr>
                                                 <td><?= $no ?></td>
-                                                <td><span class="badge badge-success"><?= $data['invoice_number_rev'] ? 'REV'.$data['invoice_number_rev'].'-'.$data[0] : $data[0] ?></span></td>
+                                                <td><span class="badge badge-success"><?= $data['invoice_number_rev'] ? 'REV.'.$data[0] : $data[0] ?></span></td>
                                                 <td><span class="badge badge-info"><i class="fa fa-user"></i> <?= $data['username'] ?></span></td>
                                                 <td><?= history_arsip_invoice($data[0]) ?></td>
                                             </tr>

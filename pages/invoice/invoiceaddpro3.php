@@ -2,7 +2,7 @@
     <ol class="breadcrumb border-0 m-0">
         <li class="breadcrumb-item"><a href="?page=beranda">Home</a></li>
         <li class="breadcrumb-item active"><a href="?page=invoice">Invoice</a></li>
-        <li class="breadcrumb-item active">Tambah Data Invoice</li>
+        <li class="breadcrumb-item active">Add Data Invoice</li>
     </ol>
 </div>
 <main class="c-main">
@@ -11,7 +11,7 @@
             <div class="row">
                 <div class="col-sm-12 col-md-12 col-lg-12">
                     <div class="card card-accent-primary">
-                        <div class="card-header">Tambah Data Invoice</div>
+                        <div class="card-header">Add Data Invoice</div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-12">
@@ -35,14 +35,14 @@
 
                                             if ($count == 0) {
                                                 $invoice_number = '01';
-                                                $id_invoice = $data_product['product_code'].'-01/INV/GH-STN/'.get_romawi($month_now).'/'.$year_now;
+                                                $id_invoice = $data_product['product_code'].'/'.'01/'.get_romawi($month_now).'/'.$year_now;
                                             } else {
                                                 if ($number <= 9) {
                                                     $invoice_number = '0'.$number;
-                                                    $id_invoice = $data_product['product_code'].'-0'.$number.'/INV/GH-STN/'.get_romawi($month_now).'/'.$year_now;
+                                                    $id_invoice = $data_product['product_code'].'/0'.$number.'/'.get_romawi($month_now).'/'.$year_now;
                                                 } else {
                                                     $invoice_number = $number;
-                                                    $id_invoice = $data['product_code'].'-'.$number.'/INV/GH-STN/'.get_romawi($month_now).'/'.$year_now;
+                                                    $id_invoice = $data['product_code'].'/'.$number.'/'.get_romawi($month_now).'/'.$year_now;
                                                 }
                                             }
 

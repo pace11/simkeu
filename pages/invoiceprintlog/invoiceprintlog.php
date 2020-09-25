@@ -35,7 +35,7 @@
                                         while($data=mysqli_fetch_array($q)){ ?>
                                             <tr>
                                                 <td><?= $no ?></td>
-                                                <td><span class="badge badge-success"><?= $data['invoice_number_rev'] ? 'REV'.$data['invoice_number_rev'].'-'.$data['invoice_id'] : $data['invoice_id'] ?></span></td>
+                                                <td><span class="badge badge-success"><?= $data['invoice_number_rev'] ? 'REV.'.$data['invoice_id'] : $data['invoice_id'] ?></span></td>
                                                 <td><?= $data['product_name'].' - ['.$data['product_code'].']' ?></td>
                                                 <td><span class="badge badge-info"><i class="fa fa-user"></i> <?= $data['username'] ?></span></td>
                                                 <td><?= date_time($data[4]) ?></td>

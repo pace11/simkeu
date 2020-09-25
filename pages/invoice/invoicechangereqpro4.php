@@ -24,13 +24,17 @@
                                             $updated_at = date('Y-m-d H:i:s');
                     
                                             if ($count == 0) {
-                                                $q = mysqli_query($conn, "SELECT * FROM invoices WHERE id='$id_inv'");
-                                                $get = mysqli_fetch_array($q);
+                                                $q      = mysqli_query($conn, "SELECT * FROM invoices JOIN customers ON invoices.customer_id=customers.id WHERE invoices.id='$id_inv'");
+                                                $get    = mysqli_fetch_array($q);
 
                                                 $data = [
-                                                    "id" => $get['id'],
+                                                    0 => $get[0],
+                                                    "id" => $get[0],
                                                     "auth_login_id" => $get['auth_login_id'],
                                                     "customer_id" => $get['customer_id'],
+                                                    "customer_name" => $get['customer_name'],
+                                                    "customer_address" => $get['customer_address'],
+                                                    "customer_phone" => $get['customer_phone'],
                                                     "product_id" => $get['product_id'],
                                                     "invoice_number" => $get['invoice_number'],
                                                     "invoice_contract_no" => $get['invoice_contract_no'] ? $get['invoice_contract_no'] : '-',
@@ -50,8 +54,8 @@
                                                     "invoice_psc" => $get['invoice_psc'] ? $get['invoice_psc'] : '-',
                                                     "invoice_amount" => $get['invoice_amount'] ? $get['invoice_amount'] : '-',
                                                     "invoice_file" => $get['invoice_file'],
-                                                    "created_at" => $get['created_at'],
-                                                    "updated_at" => $get['updated_at']
+                                                    "created_at" => $get[30],
+                                                    "updated_at" => $get[31]
                                                 ];
                                                 $data_json = json_encode($data);
 
@@ -64,27 +68,17 @@
                                                                                 created_at         = '$updated_at',
                                                                                 updated_at         = '$updated_at'") or die (mysqli_error($conn));
 
-                                                $count_all  = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM invoices_log WHERE invoice_id='$id_inv'"));
-                                                $number_rev = $count_all < 10 ? '0'.$count_all : $count_all;
-
-                                                $insert2 = mysqli_query($conn, "UPDATE invoices SET
-                                                                                invoice_number_rev = '$number_rev'
-                                                                                WHERE id           = '$id_inv'") or die (mysqli_error($conn));
+                                                mysqli_query($conn, "UPDATE invoices SET
+                                                                    invoice_number_rev = '01'
+                                                                    WHERE id           = '$id_inv'") or die (mysqli_error($conn));
                                             } else {
                                                 $insert = mysqli_query($conn, "UPDATE invoices_log SET
                                                             invoice_log_note   = '$note',
                                                             updated_at         = '$updated_at'
                                                             WHERE id           = '$id'") or die (mysqli_error($conn));
-                                                
-                                                $count_all  = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM invoices_log WHERE invoice_id='$id_inv'"));
-                                                $number_rev = $count_all < 10 ? '0'.$count_all : $count_all;
-                                                
-                                                $insert2 = mysqli_query($conn, "UPDATE invoices SET
-                                                            invoice_number_rev = '$number_rev'
-                                                            WHERE id           = '$id_inv'") or die (mysqli_error($conn));
                                             }
                                             
-                                            if ($insert && $insert2){
+                                            if ($insert){
                                                 echo    '<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Success!</strong> Request change sent.'.
                                                             '<button class="close" type="button" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>'.
                                                         '</div>';

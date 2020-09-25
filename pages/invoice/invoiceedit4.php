@@ -184,7 +184,7 @@ $count      = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM invoices_log WH
                             <form action="?page=invoicechangereqpro3" method="post" enctype="multipart/form-data">
                                 <div class="row">
                                     <div class="col-md-8">
-                                        <div class="alert alert-warning alert-dismissible fade show" role="alert"><strong>Note!</strong> if the invoice has not been approved by the manager, you must make a request change with added note request change.
+                                        <div class="alert alert-warning alert-dismissible fade show" role="alert"><strong>Note!</strong> if the invoice has not been approved by the manager, you must make a request change with added note request change. Change requests can only be changed once.
                                             <button class="close" type="button" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
                                         </div>
                                     </div>

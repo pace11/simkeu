@@ -24,13 +24,18 @@
 </head>
 
 <body>
-    <?php 
-        $get = mysqli_query($conn, "SELECT * FROM invoices 
-                                    JOIN customers ON invoices.customer_id=customers.id
-                                    JOIN products ON invoices.product_id=products.id
-                                    JOIN auth_login ON invoices.auth_login_id=auth_login.id
-                                    WHERE invoices.id='$_GET[id]'") or die (mysqli_error($conn));
-        $data = mysqli_fetch_array($get);
+    <?php
+        if ($_GET['type'] == 'T') { 
+            $get = mysqli_query($conn, "SELECT * FROM invoices 
+                                        JOIN customers ON invoices.customer_id=customers.id
+                                        JOIN products ON invoices.product_id=products.id
+                                        JOIN auth_login ON invoices.auth_login_id=auth_login.id
+                                        WHERE invoices.id='$_GET[id]'") or die (mysqli_error($conn));
+            $data = mysqli_fetch_array($get);
+        } else {
+            $get = mysqli_query($conn, "SELECT * FROM invoices_log WHERE id=$_GET[idl]");
+            $data = json_decode($get['invoice_log_data'], true);
+        }
     ?>
     <div style="width:100%;height: auto;box-sizing: border-box;">
         <div style="text-align: right;height: 100px;">
@@ -64,7 +69,7 @@
                             <td><p style="font-family: 'Archivo Narrow',sans-serif;line-height:1.5;margin:0; padding: 0;text-align: left;font-size: 12px;">Invoice ID</p></td>
                             <td>
                                 <p style="font-family: 'Archivo Narrow',sans-serif;line-height:1.5;padding:0;margin:0;">
-                                : <?= $data['invoice_number_rev'] ? 'REV'.$data['invoice_number_rev'].'-'.$data[0] : $data[0] ?>
+                                : <?= $data['invoice_number_rev'] ? 'REV.'.$data[0] : $data[0] ?>
                                 </p>
                             </td>
                         </tr>
@@ -125,10 +130,10 @@
                     <p style="font-family: 'Archivo Narrow',sans-serif;line-height:1.5;margin:0; padding: 0;text-align: left;text-transform:uppercase;">SEBESAR ...</p>
                 </td>
                 <td style="width: 20%; border:1px solid #000;padding: 5px;">
-                    <p style="font-family: 'Archivo Narrow',sans-serif;line-height:1.5;margin:0; padding: 0;text-align: center;vertical-align: bottom;text-transform:uppercase;"><?= $data['invoice_total_hour'] ?> HOURS</p>
+                    <p style="font-family: 'Archivo Narrow',sans-serif;line-height:1.5;margin:0; padding: 0;text-align: center;vertical-align: bottom;text-transform:uppercase;"><?= $data['invoice_total_hour'] && $data['invoice_total_hour'] != '-' ? $data['invoice_total_hour'].' HOURS' : '' ?></p>
                 </td>
                 <td style="width: 20%; border:1px solid #000;padding: 5px;">
-                    <p style="font-family: 'Archivo Narrow',sans-serif;line-height:1.5;margin:0; padding: 0;text-align: center;vertical-align: bottom;text-transform:uppercase;"><?= $data['invoice_price_hour'] ?></p>
+                    <p style="font-family: 'Archivo Narrow',sans-serif;line-height:1.5;margin:0; padding: 0;text-align: center;vertical-align: bottom;text-transform:uppercase;"><?= $data['invoice_price_hour'] && $data['invoice_price_hour'] != '-' ? $data['invoice_price_hour'] : '' ?></p>
                 </td>
                 <td style="width: 20%; border:1px solid #000;padding: 5px;">
                     <p style="font-family: 'Archivo Narrow',sans-serif;line-height:1.5;margin:0; padding: 0;text-align: right;text-transform:uppercase;"><?= rupiah($data['invoice_total']) ?></p>

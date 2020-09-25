@@ -76,6 +76,8 @@
                                                         customer_id             = '$customer',
                                                         product_id              = '$product',
                                                         invoice_number          = '$invoice_number',
+                                                        invoice_log_status      = 'T',
+                                                        invoice_log_filled      = 'T',
                                                         invoice_contract_no     = NULLIF('$contract', ''),
                                                         invoice_record_no       = NULLIF('$record', ''),
                                                         invoice_date            = NULLIF('$invoice_date', ''),

@@ -84,15 +84,14 @@ function label_invoices($param) {
 
 function desc_invoices_log($param) {
     include "connection.php";
-    $tmp = "";
-    $q = mysqli_query($conn, "SELECT * FROM invoices_log WHERE invoice_id='$param'");
-    $count = mysqli_num_rows($q);
+    $tmp    = "";
+    $q      = mysqli_query($conn, "SELECT * FROM invoices WHERE id='$param' AND invoice_log_note IS NOT NULL");
+    $data   = mysqli_fetch_array($q);
+    $count  = mysqli_num_rows($q);
     if ($count > 0) {
-        $tmp = '<p style="padding:0;margin:0;"><span class="badge badge-info">'.$count.' Request Change</span></p>'; 
+        $tmp = '<p style="padding:0;margin:0;"><span class="badge badge-info">Request Change</span></p>'; 
         $tmp .= '<ol style="padding: 0;margin: 0 0 0 15px;">';
-        while($data=mysqli_fetch_array($q)) {
-            $tmp .='<li><p style="padding:0;margin:0;">'.$data['invoice_log_note'].' - '.date('d/M/Y', strtotime($data['created_at'])).' '.label_invoices($data['invoice_log_status']).'</p></li>';
-        }
+        $tmp .='<li><p style="padding:0;margin:0;">'.$data['invoice_log_note'].' - '.date('d/M/Y', strtotime($data['created_at'])).' '.label_invoices($data['invoice_log_status']).'</p></li>';
         $tmp .= '</ol>';
     } else {
         $tmp = '-';
@@ -205,18 +204,14 @@ function terbilang($nilai) {
 function approved_select($param) {
     include "connection.php";
     $tmp = "";
-    $count_all = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM invoices_log WHERE invoice_id='$param'"));
-    $q = mysqli_query($conn, "SELECT * FROM invoices_log WHERE invoice_id='$param' AND invoice_log_status='T' ORDER BY id DESC LIMIT 1");
-    $q1 = mysqli_query($conn, "SELECT * FROM invoices_log WHERE invoice_id='$param' ORDER BY id DESC LIMIT 1");
-    $count = mysqli_num_rows($q);
-    $data = mysqli_fetch_array($q1);
+    $count_all = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM invoices WHERE id='$param' AND invoice_log_status='T' AND invoice_log_note IS NOT NULL"));
+    $count = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM invoices WHERE id='$param' AND invoice_log_status='T'"));
+    $data = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM invoices WHERE id='$param' AND invoice_log_status='T'"));
     if ($count_all > 0) {
-        if ($count > 0)
-            $tmp = '<span class="badge badge-danger"><i class="fa fa-remove"></i> not approved</span><select class="form-control approved"><option style="display:none;">- choose -</option><option value="Y'.$data['invoice_id'].'">Approved</option><option value="T'.$data['invoice_id'].'">Not Approved</option></select>';
-        else
-            $tmp = '<span class="badge badge-success"><i class="fa fa-check"></i> approved</span>';
+        if ($count > 0) $tmp = '<span class="badge badge-danger"><i class="fa fa-remove"></i> not approved</span><select class="form-control approved"><option style="display:none;">- choose -</option><option value="Y'.$data['id'].'">Approved</option><option value="T'.$data['id'].'">Not Approved</option></select>';
     } else {
-        $tmp = '-';
+        if ($count == 0) $tmp = '<span class="badge badge-success"><i class="fa fa-check"></i> approved</span>';
+        else $tmp = '-';
     }
     return $tmp;
 }
@@ -238,19 +233,17 @@ function date_time($param) {
 function history_arsip_invoice($param) {
     include "connection.php";
     $tmp = "";
-    $q = mysqli_query($conn, "SELECT * FROM invoices_log WHERE invoice_id='$param'");
-    $q1 = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM invoices WHERE id='$param'"));
+    $q = mysqli_query($conn, "SELECT * FROM invoices WHERE id='$param'");
+    $data = mysqli_fetch_array($q);
     $count = mysqli_num_rows($q);
-    if ($count > 0) {
+    if ($data['invoice_number_rev']) {
+        $get = json_decode($data['invoice_log_data'], true);
         $tmp = '<ol style="padding: 0;margin: 0 0 0 15px;">';
-        while($data=mysqli_fetch_array($q)) {
-            $get =json_decode($data['invoice_log_data'], true);
-            $tmp .='<li><p style="padding:0;margin:0;">REV.'.$get['invoice_number_rev'].'-'.$data['invoice_id'].' - '.date('d/M/Y', strtotime($data['updated_at'])).'<a href="?page=invoiceprint&id='.$data['invoice_id'].'&date='.$get['invoice_date'].'&pid='.$get['product_id'].'&type=L&idl='.$data['id'].'" class="btn btn-success btn-sm m-1"><i class="fa fa-print"></i> print</a></p></li>';
-        }
+        $tmp .='<li><p style="padding:0;margin:0;">REV.'.$data['id'].' - '.date('d/M/Y', strtotime($data['updated_at'])).'<a href="?page=invoiceprint&id='.$data['id'].'&date='.$data['invoice_date'].'&pid='.$data['product_id'].'&type=L" class="btn btn-success btn-sm m-1"><i class="fa fa-print"></i> print</a></p></li>';
         $tmp .= '</ol>';
     } else {
         $tmp = '<ol style="padding: 0;margin: 0 0 0 15px;">';
-        $tmp .='<li><p style="padding:0;margin:0;">'.$q1['id'].' - '.date('d/M/Y', strtotime($q1['updated_at'])).'<a href="?page=invoiceprint&id='.$q1['id'].'&date='.$q1['invoice_date'].'&pid='.$q1['product_id'].'&type=T&idl=T" class="btn btn-success btn-sm m-1"><i class="fa fa-print"></i> print</a></p></li>';
+        $tmp .='<li><p style="padding:0;margin:0;">'.$data['id'].' - '.date('d/M/Y', strtotime($data['updated_at'])).'<a href="?page=invoiceprint&id='.$data['id'].'&date='.$data['invoice_date'].'&pid='.$data['product_id'].'&type=T" class="btn btn-success btn-sm m-1"><i class="fa fa-print"></i> print</a></p></li>';
         $tmp .= '</ol>';
     }
     return $tmp;

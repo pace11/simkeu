@@ -76,6 +76,8 @@
                                                         product_id              = '$product',
                                                         reg_id                  = '$reg',
                                                         invoice_number          = '$invoice_number',
+                                                        invoice_log_status      = 'T',
+                                                        invoice_log_filled      = 'T',
                                                         invoice_contract_no     = NULLIF('$contract', ''),
                                                         invoice_record_no       = NULLIF('$record', ''),
                                                         invoice_date            = NULLIF('$invoice_date', ''),

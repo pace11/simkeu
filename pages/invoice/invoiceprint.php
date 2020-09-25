@@ -20,7 +20,6 @@
                                         $date       = $_GET['date'];
                                         $product    = $_GET['pid'];
                                         $type       = $_GET['type'];
-                                        $idl        = $_GET['idl'];
                                         $user       = get_user_login(0);
                                         $filename   = str_replace(['-','/'], ['',''],$id).'.pdf';
                                         $dir        = strtoupper(date('F_Y', strtotime($date)));
@@ -37,13 +36,13 @@
                                                             updated_at      = '$updated_at'") or die (mysqli_error($conn));
 
                                         if ($product == 'PRODUCT001') 
-                                            $html = file_get_contents(url_file()."/crg.php?id=$id&type=$type&idl=$idl");
+                                            $html = file_get_contents(url_file()."/crg.php?id=$id&type=$type");
                                         else if ($product == 'PRODUCT002')
-                                            $html = file_get_contents(url_file()."/charter.php?id=$id&type=$type&idl=$idl");
+                                            $html = file_get_contents(url_file()."/charter.php?id=$id&type=$type");
                                         else if ($product == 'PRODUCT003')
-                                            $html = file_get_contents(url_file()."/gh.php?id=$id&type=$type&idl=$idl");
+                                            $html = file_get_contents(url_file()."/gh.php?id=$id&type=$type");
                                         else
-                                            $html = file_get_contents(url_file()."/ticket.php?id=$id&type=$type&idl=$idl");
+                                            $html = file_get_contents(url_file()."/ticket.php?id=$id&type=$type");
 
                                         $dompdf->loadHtml($html);
                                         $dompdf->setPaper('A4', 'portrait');

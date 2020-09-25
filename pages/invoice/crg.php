@@ -32,7 +32,7 @@
                                         WHERE invoices.id='$_GET[id]'") or die (mysqli_error($conn));
             $data = mysqli_fetch_array($get);
         } else {
-            $get    = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM invoices_log WHERE id=$_GET[idl]"));
+            $get    = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM invoices WHERE id='$_GET[id]'"));
             $data   = json_decode($get['invoice_log_data'], true);
         }
     ?>
@@ -124,8 +124,8 @@
                 </td>
                 <td style="width: 35%; border:1px solid #000;padding: 5px;">
                     <p style="line-height:1.6;margin:0; padding: 0;text-align: left;text-transform:uppercase;"><?= $data['invoice_note'] ?></p>
-                    <p style="line-height:1.6;margin:0; padding: 0;text-align: left;text-transform:uppercase;">ROUTE: <?= $data['invoice_route_from'].' - '.$data['invoice_route_from'] ?></p>
-                    <p style="line-height:1.6;margin:0; padding: 0;text-align: left;text-transform:uppercase;">SEBANYAK: <?= $data['invoice_weight'] ? $data['invoice_weight'].'KG' : '-' ?></p>
+                    <p style="line-height:1.6;margin:0; padding: 0;text-align: left;text-transform:uppercase;">ROUTE: <?= $data['invoice_route_from'].' - '.$data['invoice_route_to'] ?></p>
+                    <p style="line-height:1.6;margin:0; padding: 0;text-align: left;text-transform:uppercase;">SEBANYAK: <?= $data['invoice_weight'] ? $data['invoice_weight'].' KG' : '-' ?></p>
                     <p style="line-height:1.6;margin:0; padding: 0;text-align: left;text-transform:uppercase;">PERIODE: <?= date('d', strtotime($data['invoice_date_period_1'])).' - '.date_ind($data['invoice_date_period_2']) ?></p>
                     <p style="line-height:1.6;margin:0; padding: 0;text-align: left;text-transform:uppercase;">SEBESAR ...</p>
                 </td>

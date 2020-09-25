@@ -18,62 +18,49 @@
                                     <?php 
                                         if (isset($_POST['submit'])){
                                             $id         = $_POST['id'];
-                                            $id_inv     = $_POST['id_invoice'];
-                                            $count      = $_POST['count'];
                                             $note       = $_POST['note_rc'];
-                                            $updated_at = date('Y-m-d H:i:s');
+                                            $time       = date('Y-m-d H:i:s');
                     
-                                            if ($count == 0) {
-                                                $q      = mysqli_query($conn, "SELECT * FROM invoices JOIN customers ON invoices.customer_id=customers.id WHERE invoices.id='$id_inv'");
-                                                $get    = mysqli_fetch_array($q);
+                                            $q      = mysqli_query($conn, "SELECT * FROM invoices JOIN customers ON invoices.customer_id=customers.id WHERE invoices.id='$id'");
+                                            $get    = mysqli_fetch_array($q);
 
-                                                $data = [
-                                                    0 => $get[0],
-                                                    "id" => $get[0],
-                                                    "auth_login_id" => $get['auth_login_id'],
-                                                    "customer_id" => $get['customer_id'],
-                                                    "customer_name" => $get['customer_name'],
-                                                    "customer_address" => $get['customer_address'],
-                                                    "customer_phone" => $get['customer_phone'],
-                                                    "product_id" => $get['product_id'],
-                                                    "invoice_number" => $get['invoice_number'] ? $get['invoice_number'] : '-',
-                                                    "invoice_contract_no" => $get['invoice_contract_no'] ? $get['invoice_contract_no'] : '-',
-                                                    "invoice_record_no" => $get['invoice_record_no'] ? $get['invoice_record_no'] : '-',
-                                                    "invoice_date" => $get['invoice_date'] ? $get['invoice_date'] : '-',
-                                                    "invoice_total_hour" => $get['invoice_total_hour'] ? $get['invoice_total_hour'] : '-',
-                                                    "invoice_price_hour" => $get['invoice_price_hour'] ? $get['invoice_price_hour'] : '-',
-                                                    "invoice_note" => $get['invoice_note'] ? $get['invoice_note'] : '-',
-                                                    "invoice_date_period_1" => $get['invoice_date_period_1'] ? $get['invoice_date_period_1'] : '-',
-                                                    "invoice_date_period_2" => $get['invoice_date_period_2'] ? $get['invoice_date_period_2'] : '-',
-                                                    "invoice_calculated" => $get['invoice_calculated'] ? $get['invoice_calculated'] : '-',
-                                                    "invoice_total" => $get['invoice_total'] ? $get['invoice_total'] : '-',
-                                                    "invoice_vat" => $get['invoice_vat'] ? $get['invoice_vat'] : '-',
-                                                    "invoice_amount" => $get['invoice_amount'] ? $get['invoice_amount'] : '-',
-                                                    "invoice_file" => $get['invoice_file'],
-                                                    "created_at" => $get[30],
-                                                    "updated_at" => $get[31]
-                                                ];
-                                                $data_json = json_encode($data);
+                                            $data = [
+                                                0 => $get[0],
+                                                "id" => $get[0],
+                                                "auth_login_id" => $get['auth_login_id'],
+                                                "customer_id" => $get['customer_id'],
+                                                "customer_name" => $get['customer_name'],
+                                                "customer_address" => $get['customer_address'],
+                                                "customer_phone" => $get['customer_phone'],
+                                                "product_id" => $get['product_id'],
+                                                "invoice_number" => $get['invoice_number'] ? $get['invoice_number'] : '-',
+                                                "invoice_number_rev" => '01',
+                                                "invoice_contract_no" => $get['invoice_contract_no'] ? $get['invoice_contract_no'] : '-',
+                                                "invoice_record_no" => $get['invoice_record_no'] ? $get['invoice_record_no'] : '-',
+                                                "invoice_date" => $get['invoice_date'] ? $get['invoice_date'] : '-',
+                                                "invoice_total_hour" => $get['invoice_total_hour'] ? $get['invoice_total_hour'] : '-',
+                                                "invoice_price_hour" => $get['invoice_price_hour'] ? $get['invoice_price_hour'] : '-',
+                                                "invoice_note" => $get['invoice_note'] ? $get['invoice_note'] : '-',
+                                                "invoice_date_period_1" => $get['invoice_date_period_1'] ? $get['invoice_date_period_1'] : '-',
+                                                "invoice_date_period_2" => $get['invoice_date_period_2'] ? $get['invoice_date_period_2'] : '-',
+                                                "invoice_calculated" => $get['invoice_calculated'] ? $get['invoice_calculated'] : '-',
+                                                "invoice_total" => $get['invoice_total'] ? $get['invoice_total'] : '-',
+                                                "invoice_vat" => $get['invoice_vat'] ? $get['invoice_vat'] : '-',
+                                                "invoice_amount" => $get['invoice_amount'] ? $get['invoice_amount'] : '-',
+                                                "invoice_file" => $get['invoice_file'],
+                                                "created_at" => $get[34],
+                                                "updated_at" => $get[35]
+                                            ];
+                                            $data_json = json_encode($data);
 
-                                                $insert = mysqli_query($conn, "INSERT INTO invoices_log SET
-                                                                                invoice_id         = '$id_inv',
-                                                                                invoice_log_data   = '$data_json',
-                                                                                invoice_log_note   = '$note',
-                                                                                invoice_log_status = 'T',
-                                                                                invoice_log_filled = 'T',
-                                                                                created_at         = '$updated_at',
-                                                                                updated_at         = '$updated_at'") or die (mysqli_error($conn));
+                                            $insert = mysqli_query($conn, "UPDATE invoices SET
+                                                                            invoice_number_rev = '01',
+                                                                            invoice_log_data   = '$data_json',
+                                                                            invoice_log_note   = '$note',
+                                                                            created_at         = '$time',
+                                                                            updated_at         = '$time'
+                                                                            WHERE   id         = '$id'") or die (mysqli_error($conn));
                                                 
-                                                mysqli_query($conn, "UPDATE invoices SET
-                                                                    invoice_number_rev = '01'
-                                                                    WHERE id           = '$id_inv'") or die (mysqli_error($conn));
-                                            } else {
-                                                $insert = mysqli_query($conn, "UPDATE invoices_log SET
-                                                            invoice_log_note   = '$note',
-                                                            updated_at         = '$updated_at'
-                                                            WHERE id           = '$id'") or die (mysqli_error($conn));
-                                            }
-                                            
                                             if ($insert){
                                                 echo    '<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Success!</strong> Request change sent.'.
                                                             '<button class="close" type="button" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>'.

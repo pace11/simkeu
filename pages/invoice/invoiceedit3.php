@@ -3,9 +3,6 @@
 $get    = mysqli_query($conn, "SELECT * FROM invoices WHERE id='$_GET[id]'");
 $data   = mysqli_fetch_array($get);
 
-$data_rc    = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM invoices_log WHERE invoice_id='$data[id]' ORDER BY id DESC LIMIT 1"));
-$count      = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM invoices_log WHERE invoice_id='$data[id]' AND invoice_log_status='T' AND invoice_log_filled='T' ORDER BY id DESC LIMIT 1"));
-
 ?>
 <div class="c-subheader px-3">
     <ol class="breadcrumb border-0 m-0">
@@ -23,7 +20,7 @@ $count      = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM invoices_log WH
                         <div class="card-header">Edit Data Invoice Ground Handling</div>
                         <div class="card-body">
                             <?php 
-                            if ($data_rc['invoice_log_status'] == 'Y' AND $data_rc['invoice_log_filled'] == 'T') {
+                            if ($data['invoice_log_status'] == 'Y' AND $data['invoice_log_filled'] == 'T') {
                             ?>
                             <form action="?page=invoiceeditpro3" method="post" enctype="multipart/form-data">
                                 <div class="row">
@@ -153,9 +150,7 @@ $count      = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM invoices_log WH
                                     <div class="col-md-8">
                                         <div class="form-group">
                                             <label for="name">Note Request Change</label>
-                                            <input type="hidden" value="<?= $data_rc['id'] ?>" name="id">
-                                            <input type="hidden" value="<?= $data['id'] ?>" name="id_invoice">
-                                            <input type="hidden" value="<?= $count ?>" name="count">
+                                            <input type="hidden" value="<?= $data['id'] ?>" name="id">
                                             <textarea class="form-control" name="note_rc" rows="3" placeholder="Note Request Change ..."></textarea>
                                         </div>
                                     </div>

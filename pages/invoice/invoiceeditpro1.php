@@ -18,7 +18,6 @@
                                     <?php 
                                         if (isset($_POST['submit'])){
                                             $id             = $_POST['id'];
-                                            $id_log         = $_POST['id_log'];
                                             $customer       = $_POST['customer'];
                                             $contract       = $_POST['contract_no'];
                                             $record         = $_POST['record_no'];
@@ -48,6 +47,7 @@
                     
                                             $insert = mysqli_query($conn, "UPDATE invoices SET
                                                         customer_id             = '$customer',
+                                                        invoice_log_filled      = 'Y',
                                                         invoice_contract_no     = NULLIF('$contract', ''),
                                                         invoice_record_no       = NULLIF('$record', ''),
                                                         invoice_date            = NULLIF('$invoice_date', ''),
@@ -67,14 +67,9 @@
                                                         invoice_file            = '$invoice_file',
                                                         updated_at              = '$updated_at'
                                                         WHERE id                = '$id'") or die (mysqli_error($conn));
-
-                                            $insert2 = mysqli_query($conn, "UPDATE invoices_log SET
-                                                        invoice_log_filled = 'Y',
-                                                        updated_at         = '$updated_at'
-                                                        WHERE id           = '$id_log'") or die (mysqli_error($conn));
                                             
-                                            if ($insert && $insert2){
-                                                echo    '<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Berhasil!</strong> Data telah tersimpan.'.
+                                            if ($insert){
+                                                echo    '<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Success!</strong> Data has been saved.'.
                                                             '<button class="close" type="button" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>'.
                                                         '</div>';
                                                 echo "<meta http-equiv='refresh' content='2;

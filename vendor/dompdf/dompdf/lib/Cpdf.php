@@ -3881,8 +3881,9 @@ EOT;
      */
     function stream($filename = "document.pdf", $options = [])
     {
-        if (headers_sent()) {
-            die("Unable to stream pdf: headers already sent");
+        $output = ob_get_clean();
+        if ( headers_sent()) {
+            echo $output; 
         }
 
         if (!isset($options["compress"])) $options["compress"] = true;

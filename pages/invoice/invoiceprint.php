@@ -27,6 +27,11 @@
                                         $exist_dir  = "file/".$dir;
                                         if (!file_exists($exist_dir)) {
                                             mkdir("file/".$dir, 0777);
+                                        } else {
+                                            $filedir = "file/".$dir.'/'.$filename;
+                                            if (file_exists($filedir)) {
+                                                unlink($filedir);
+                                            }
                                         }
 
                                         mysqli_query($conn, "INSERT INTO invoices_print_log SET

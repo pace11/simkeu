@@ -33,7 +33,7 @@
                                         WHERE invoices.id='$_GET[id]'") or die (mysqli_error($conn));
             $data = mysqli_fetch_array($get);
         } else {
-            $get = mysqli_query($conn, "SELECT * FROM invoices WHERE id='$_GET[id]'");
+            $get = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM invoices WHERE id='$_GET[id]'"));
             $data = json_decode($get['invoice_log_data'], true);
         }
     ?>

@@ -16,7 +16,6 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <?php 
-                                        ob_start();
                                         $id         = $_GET['id'];
                                         $date       = $_GET['date'];
                                         $product    = $_GET['pid'];
@@ -49,11 +48,14 @@
                                         $dompdf->loadHtml($html);
                                         $dompdf->setPaper('A4', 'portrait');
                                         $dompdf->render();
-                                        ob_end_clean();
-                                        $dompdf->stream("Codingan",array("Attachment"=>0));
-                                        // $output = $dompdf->output();
-                                        // $file_put = file_put_contents($exist_dir.'/'.$filename, $output);  
+                                        $output = $dompdf->output();
+                                        $file_put = file_put_contents($exist_dir.'/'.$filename, $output);  
                                     ?>
+                                    <?php
+                                    if ($file_put) {
+                                    ?>
+                                    <embed src="<?= $exist_dir.'/'.$filename ?>" width="100%" height="1000px" />
+                                    <?php } ?>
                                 </div>
                             </div>
                         </div>

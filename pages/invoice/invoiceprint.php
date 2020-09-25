@@ -48,14 +48,11 @@
                                         $dompdf->loadHtml($html);
                                         $dompdf->setPaper('A4', 'portrait');
                                         $dompdf->render();
-                                        $output = $dompdf->output();
-                                        $file_put = file_put_contents($exist_dir.'/'.$filename, $output);  
+                                        ob_end_clean();
+                                        $dompdf->stream("Codingan",array("Attachment"=>0));
+                                        // $output = $dompdf->output();
+                                        // $file_put = file_put_contents($exist_dir.'/'.$filename, $output);  
                                     ?>
-                                    <?php
-                                    if ($file_put) {
-                                    ?>
-                                    <embed src="<?= $exist_dir.'/'.$filename ?>" width="100%" height="1000px" />
-                                    <?php } ?>
                                 </div>
                             </div>
                         </div>

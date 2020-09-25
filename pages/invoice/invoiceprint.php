@@ -22,16 +22,12 @@
                                         $type       = $_GET['type'];
                                         $user       = get_user_login(0);
                                         $filename   = str_replace(['-','/'], ['',''],$id).'.pdf';
+                                        $final_file = $type == 'T' ? $filename : 'REV'.$filename;
                                         $dir        = strtoupper(date('F_Y', strtotime($date)));
                                         $updated_at = date('Y-m-d H:i:s');
                                         $exist_dir  = "file/".$dir;
                                         if (!file_exists($exist_dir)) {
                                             mkdir("file/".$dir, 0777);
-                                        } else {
-                                            $filedir = "file/".$dir.'/'.$filename;
-                                            if (file_exists($filedir)) {
-                                                unlink($filedir);
-                                            }
                                         }
 
                                         mysqli_query($conn, "INSERT INTO invoices_print_log SET
@@ -53,12 +49,12 @@
                                         $dompdf->setPaper('A4', 'portrait');
                                         $dompdf->render();
                                         $output = $dompdf->output();
-                                        $file_put = file_put_contents($exist_dir.'/'.$filename, $output);  
+                                        $file_put = file_put_contents($exist_dir.'/'.$final_file, $output);  
                                     ?>
                                     <?php
                                     if ($file_put) {
                                     ?>
-                                    <embed src="<?= $exist_dir.'/'.$filename ?>" width="100%" height="1000px" />
+                                    <embed src="<?= $exist_dir.'/'.$final_file ?>" width="100%" height="1000px" />
                                     <?php } ?>
                                 </div>
                             </div>

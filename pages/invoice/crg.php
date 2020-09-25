@@ -12,7 +12,7 @@
     <title>Cargo Invoice</title>
     <style>
         body {
-            font-size: 9pt;
+            font-size: 10pt;
         }
         table {
             width: 100%;
@@ -145,13 +145,13 @@
                 <td style="width: 50%; border-top:1px solid #000;border-left:1px solid #000;border-bottom:1px solid #000;border-right:0;padding: 5px;">
                     <p style="line-height:1.6;margin:0; padding: 0;text-align: left;text-transform:uppercase;">TERBILANG: # <?= $data['invoice_calculated'] ?> #</p>
                 </td>
-                <td style="width: 30.8%; border-top:1px solid #000;border-right:1px solid #000;border-bottom:1px solid #000;border-left:0;padding: 5px;">
+                <td style="width: 30.7%; border-top:1px solid #000;border-right:1px solid #000;border-bottom:1px solid #000;border-left:0;padding: 5px;">
                     <p style="line-height:1.6;margin:0; padding: 0;text-align: right;">TOTAL</p>
                     <p style="line-height:1.6;margin:0; padding: 0;text-align: right;">VAT 1%</p>
                     <p style="line-height:1.6;margin:0; padding: 0;text-align: right;">DISCOUNT</p>
                     <p style="line-height:1.6;margin:0; padding: 0;text-align: right;">TOTAL INVOICE AMOUNT</p>
                 </td>
-                <td style="width: 19.2%; border:1px solid #000;padding: 5px;">
+                <td style="width: 19.3%; border:1px solid #000;padding: 5px;">
                     <p style="line-height:1.6;margin:0; padding: 0;text-align: right;"><?= $data['invoice_total'] ? rupiah($data['invoice_total']) : '-'  ?></p>
                     <p style="line-height:1.6;margin:0; padding: 0;text-align: right;"><?= $data['invoice_vat'] ? rupiah($data['invoice_vat']) : '-' ?></p>
                     <p style="line-height:1.6;margin:0; padding: 0;text-align: right;"><?= $data['invoice_discount'] ? rupiah($data['invoice_discount']) : '-' ?></p>

@@ -16,6 +16,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <?php 
+                                        ob_start();
                                         $id         = $_GET['id'];
                                         $date       = $_GET['date'];
                                         $product    = $_GET['pid'];

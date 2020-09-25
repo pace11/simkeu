@@ -144,12 +144,12 @@
                 <td style="width: 50%; border-top:1px solid #000;border-left:1px solid #000;border-bottom:1px solid #000;border-right:0;padding: 5px;">
                     <p style="line-height:1.6;margin:0; padding: 0;text-align: left;text-transform:uppercase;">TERBILANG: # <?= $data['invoice_calculated'] ?> #</p>
                 </td>
-                <td style="width: 30.6%; border-top:1px solid #000;border-right:1px solid #000;border-bottom:1px solid #000;border-left:0;padding: 5px;">
+                <td style="width: 30.7%; border-top:1px solid #000;border-right:1px solid #000;border-bottom:1px solid #000;border-left:0;padding: 5px;">
                     <p style="line-height:1.6;margin:0; padding: 0;text-align: right;">DPP</p>
                     <p style="line-height:1.6;margin:0; padding: 0;text-align: right;">PPN 10%</p>
                     <p style="line-height:1.6;margin:0; padding: 0;text-align: right;">TOTAL INVOICE AMOUNT</p>
                 </td>
-                <td style="width: 19.4%; border:1px solid #000;padding: 5px;">
+                <td style="width: 19.3%; border:1px solid #000;padding: 5px;">
                     <p style="line-height:1.6;margin:0; padding: 0;text-align: right;"><?= $data['invoice_total'] ? rupiah($data['invoice_total']) : '-'  ?></p>
                     <p style="line-height:1.6;margin:0; padding: 0;text-align: right;"><?= $data['invoice_ppn'] ? rupiah($data['invoice_ppn']) : '-' ?></p>
                     <p style="line-height:1.6;margin:0; padding: 0;text-align: right;"><?= $data['invoice_amount'] ? rupiah($data['invoice_amount']) : '-' ?></p>

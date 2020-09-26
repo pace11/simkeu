@@ -21,7 +21,7 @@
                                             $note       = $_POST['note_rc'];
                                             $time       = date('Y-m-d H:i:s');
                     
-                                            $q      = mysqli_query($conn, "SELECT * FROM invoices JOIN customers ON invoices.customer_id=customers.id WHERE invoices.id='$id'");
+                                            $q      = mysqli_query($conn, "SELECT * FROM invoices JOIN customers ON invoices.customer_id=customers.id JOIN reg ON invoices.reg_id=reg.id WHERE invoices.id='$id'");
                                             $get    = mysqli_fetch_array($q);
 
                                             $data = [
@@ -33,6 +33,8 @@
                                                 "customer_address" => $get['customer_address'],
                                                 "customer_phone" => $get['customer_phone'],
                                                 "product_id" => $get['product_id'],
+                                                "reg_id" => $get['reg_id'] ? $get['reg_id'] : '-',
+                                                "reg_name" => $get['reg_name'],
                                                 "invoice_number" => $get['invoice_number'] ? $get['invoice_number'] : '-',
                                                 "invoice_number_rev" => '01',
                                                 "invoice_contract_no" => $get['invoice_contract_no'] ? $get['invoice_contract_no'] : '-',

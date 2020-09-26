@@ -48,6 +48,7 @@
 
                                             $user           = $_POST['id_user'];
                                             $customer       = $_POST['customer'];
+                                            $reg            = $_POST['reg'];
                                             $contract       = $_POST['contract_no'];
                                             $record         = $_POST['record_no'];
                                             $invoice_date   = date('Y-m-d', strtotime($_POST['invoice_date']));
@@ -74,6 +75,7 @@
                                                         id                      = '$id_invoice',
                                                         auth_login_id           = '$user',
                                                         customer_id             = '$customer',
+                                                        reg_id                  = '$reg',
                                                         product_id              = '$product',
                                                         invoice_number          = '$invoice_number',
                                                         invoice_log_status      = 'T',

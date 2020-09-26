@@ -19,6 +19,7 @@
                                         if (isset($_POST['submit'])){
                                             $id             = $_POST['id'];
                                             $customer       = $_POST['customer'];
+                                            $reg            = $_POST['reg'];
                                             $contract       = $_POST['contract_no'];
                                             $record         = $_POST['record_no'];
                                             $invoice_date   = date('Y-m-d', strtotime($_POST['invoice_date']));
@@ -42,6 +43,7 @@
                     
                                             $insert = mysqli_query($conn, "UPDATE invoices SET
                                                         customer_id             = '$customer',
+                                                        reg_id                  = '$reg',
                                                         invoice_log_filled      = 'Y',
                                                         invoice_contract_no     = NULLIF('$contract', ''),
                                                         invoice_record_no       = NULLIF('$record', ''),

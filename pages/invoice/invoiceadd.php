@@ -381,7 +381,7 @@
                                     <div class="row">
                                         <div class="col-md-8">
                                             <div class="row">
-                                                <div class="col-md-6">
+                                                <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label for="name">Total Hour</label>
                                                         <div class="input-group">
@@ -390,13 +390,26 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label for="name">Price Per Hour</label>
                                                         <div class="input-group">
                                                             <div class="input-group-prepend"><span class="input-group-text">Rp</span></div>
                                                             <input class="form-control" type="text" placeholder="Price Per Hour ..." name="price_hour" autocomplete="OFF">
                                                         </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="name">Reg</label>
+                                                        <select class="form-control" name="reg">
+                                                        <?php 
+                                                            $sql = mysqli_query($conn, "SELECT * FROM reg");
+                                                            while($datas = mysqli_fetch_array($sql)){
+                                                                echo '<option value="'.$datas['id'].'">'.$datas['reg_name'].'</option>';
+                                                            }
+                                                        ?>
+                                                        </select>
                                                     </div>
                                                 </div>
                                             </div>

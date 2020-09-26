@@ -1,7 +1,7 @@
 <?php 
 
-$get = mysqli_query($conn, "SELECT * FROM invoices WHERE id='$_GET[id]'");
-$data = mysqli_fetch_array($get)
+$get    = mysqli_query($conn, "SELECT * FROM invoices WHERE id='$_GET[id]'");
+$data   = mysqli_fetch_array($get);
 
 ?>
 <div class="c-subheader px-3">
@@ -19,6 +19,9 @@ $data = mysqli_fetch_array($get)
                     <div class="card card-accent-primary">
                         <div class="card-header">Edit Data Invoice Charter</div>
                         <div class="card-body">
+                            <?php 
+                            if ($data['invoice_log_status'] == 'Y' AND $data['invoice_log_filled'] == 'T') {
+                            ?>
                             <form action="?page=invoiceeditpro2" method="post" enctype="multipart/form-data">
                                 <div class="row">
                                     <div class="col-md-5">
@@ -41,6 +44,7 @@ $data = mysqli_fetch_array($get)
                                                 <div class="form-group">
                                                     <label for="name">Contract No</label>
                                                     <input type="hidden" value="<?= $data['id'] ?>" name="id">
+                                                    <input type="hidden" value="<?= $data_rc['id'] ?>" name="id_log">
                                                     <input class="form-control" type="text" placeholder="Contract No ..." name="contract_no" value="<?= $data['invoice_contract_no'] ?>" autocomplete="OFF">
                                                 </div>
                                             </div>
@@ -127,6 +131,36 @@ $data = mysqli_fetch_array($get)
                                     </div>
                                 </div>
                             </form>
+                            <?php 
+                            } else {
+                            ?>
+                            <form action="?page=invoicechangereqpro2" method="post" enctype="multipart/form-data">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="alert alert-warning alert-dismissible fade show" role="alert"><strong>Note!</strong> if the invoice has not been approved by the manager, you must make a request change with added note request change. Change requests can only be changed once.
+                                            <button class="close" type="button" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="form-group">
+                                            <label for="name">Note Request Change</label>
+                                            <input type="hidden" value="<?= $data['id'] ?>" name="id">
+                                            <textarea class="form-control" name="note_rc" rows="3" placeholder="Note Request Change ..."></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <input type="submit" name="submit" class="btn btn-primary" value="Process">
+                                        <a href="?page=invoice" class="btn btn-secondary">Back</a>
+                                    </div>
+                                </div>
+                            </form>
+                            <?php 
+                            }
+                            ?>
                         </div>
                     </div>
                 </div>

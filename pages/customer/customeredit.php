@@ -35,24 +35,24 @@
                                 <div class="row">
                                     <div class="col-md-8">
                                         <div class="form-group">
-                                            <label for="name">Nama Customer</label>
-                                            <input class="form-control" type="text" placeholder="Nama Customer ..." name="customer_name" autocomplete="OFF" value="<?= $data['customer_name'] ?>" required>
+                                            <label for="name">Customer Name</label>
+                                            <input class="form-control" type="text" placeholder="Customer Name ..." name="customer_name" autocomplete="OFF" value="<?= $data['customer_name'] ?>" required>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-8">
                                         <div class="form-group">
-                                            <label for="name">Telepon Customer</label>
-                                            <input class="form-control" type="text" placeholder="Telepon Customer ..." name="customer_phone" autocomplete="OFF" value="<?= $data['customer_phone'] ?>">
+                                            <label for="name">Customer Phone</label>
+                                            <input class="form-control" type="text" placeholder="Customer Phone ..." name="customer_phone" autocomplete="OFF" value="<?= $data['customer_phone'] ?>">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-8">
                                         <div class="form-group">
-                                            <label for="name">Alamat Customer</label>
-                                            <textarea class="form-control" name="customer_address" rows="3" placeholder="Alamat Customer ..."><?= $data['customer_address'] ?></textarea>
+                                            <label for="name">Customer Address</label>
+                                            <textarea class="form-control" name="customer_address" rows="3" placeholder="Customer Address ..."><?= $data['customer_address'] ?></textarea>
                                         </div>
                                     </div>
                                 </div>

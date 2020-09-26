@@ -22,9 +22,26 @@
                                 <div class="row">
                                     <div class="col-md-8">
                                         <div class="form-group">
-                                            <label for="name">Nama User</label>
+                                            <label for="name">Role</label>
+                                            <select class="form-control" name="role">
+                                            <?php 
+                                                if (get_user_login('id') == 1)
+                                                    $sql = mysqli_query($conn, "SELECT * FROM role_login WHERE id <> 1");
+                                                else 
+                                                    $sql = mysqli_query($conn, "SELECT * FROM role_login WHERE id <> 1 AND id <> 2");
+                                                while($datas = mysqli_fetch_array($sql)) { ?>
+                                                    <option value="<?= $datas['id'] ?>" <?= $datas['id'] == $data['role_login_id'] ? 'selected' : '' ?>><?= $datas['role_login_name'] ?></option>
+                                            <?php } ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="form-group">
+                                            <label for="name">Name User</label>
                                             <input type="hidden" value="<?= $data['id'] ?>" name="id"/>
-                                            <input class="form-control" type="text" placeholder="Nama User ..." name="name" autocomplete="OFF" value="<?= $data['name'] ?>" required>
+                                            <input class="form-control" type="text" placeholder="Name User ..." name="name" autocomplete="OFF" value="<?= $data['name'] ?>" required>
                                         </div>
                                     </div>
                                 </div>
@@ -47,8 +64,8 @@
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <input type="submit" name="submit" class="btn btn-primary" value="Simpan">
-                                <a href="?page=user" class="btn btn-secondary">Kembali</a>
+                                <input type="submit" name="submit" class="btn btn-primary" value="Save">
+                                <a href="?page=user" class="btn btn-secondary">Back</a>
                             </div>
                         </form>
                     </div>

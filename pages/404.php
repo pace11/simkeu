@@ -15,7 +15,7 @@
                                 <div class="clearfix">
                                     <h1 class="float-left display-3 mr-4">404</h1>
                                     <h4 class="pt-3">Oops!</h4>
-                                    <p class="text-muted">Halaman yang anda cari tidak ditemukan, periksa kembali halaman anda. Kembali ke <a href="?page=beranda">Home</a></p>
+                                    <p class="text-muted">Page not found. back to <a href="?page=beranda">Home</a></p>
                                 </div>
                             </div>
                         </div>
@@ -25,6 +25,3 @@
         </div>
     </div>
 </main>
-<?php 
-    include "script.php";
-?>

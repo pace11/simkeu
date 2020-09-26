@@ -15,7 +15,7 @@
     <ol class="breadcrumb border-0 m-0">
         <li class="breadcrumb-item"><a href="?page=beranda">Home</a></li>
         <li class="breadcrumb-item active"><a href="?page=reg">Reg</a></li>
-        <li class="breadcrumb-item active">Tambah Data Reg</li>
+        <li class="breadcrumb-item active">Add Data Reg</li>
     </ol>
 </div>
 <main class="c-main">
@@ -24,7 +24,7 @@
             <div class="row">
                 <div class="col-sm-12 col-md-12 col-lg-12">
                     <div class="card card-accent-primary">
-                        <div class="card-header">Tambah Data Reg</div>
+                        <div class="card-header">Add Data Reg</div>
                         <form action="?page=regaddpro" method="post" enctype="multipart/form-data">
                             <div class="card-body">
                                 <div class="row">
@@ -43,23 +43,23 @@
                                 <div class="row">
                                     <div class="col-md-8">
                                         <div class="form-group">
-                                            <label for="name">Nama Reg</label>
-                                            <input class="form-control kapital" type="text" placeholder="Nama Reg ..." name="reg_name" autocomplete="OFF" required>
+                                            <label for="name">Name Reg</label>
+                                            <input class="form-control kapital" type="text" placeholder="Name Reg ..." name="reg_name" autocomplete="OFF" required>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-8">
                                         <div class="form-group">
-                                            <label for="name">Deskripsi Reg</label>
-                                            <textarea class="form-control" name="reg_desc" rows="3" placeholder="Deskripsi Reg ..."></textarea>
+                                            <label for="name">Description Reg</label>
+                                            <textarea class="form-control" name="reg_desc" rows="3" placeholder="Description Reg ..."></textarea>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <input type="submit" name="submit" class="btn btn-primary" value="Simpan">
-                                <a href="?page=product" class="btn btn-secondary">Kembali</a>
+                                <input type="submit" name="submit" class="btn btn-primary" value="Save">
+                                <a href="?page=product" class="btn btn-secondary">Back</a>
                             </div>
                         </form>
                     </div>

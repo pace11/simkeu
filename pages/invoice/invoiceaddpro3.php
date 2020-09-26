@@ -2,7 +2,7 @@
     <ol class="breadcrumb border-0 m-0">
         <li class="breadcrumb-item"><a href="?page=beranda">Home</a></li>
         <li class="breadcrumb-item active"><a href="?page=invoice">Invoice</a></li>
-        <li class="breadcrumb-item active">Tambah Data Invoice</li>
+        <li class="breadcrumb-item active">Add Data Invoice</li>
     </ol>
 </div>
 <main class="c-main">
@@ -11,7 +11,7 @@
             <div class="row">
                 <div class="col-sm-12 col-md-12 col-lg-12">
                     <div class="card card-accent-primary">
-                        <div class="card-header">Tambah Data Invoice</div>
+                        <div class="card-header">Add Data Invoice</div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-12">
@@ -35,14 +35,14 @@
 
                                             if ($count == 0) {
                                                 $invoice_number = '01';
-                                                $id_invoice = $data_product['product_code'].'-01/INV/GH-STN/'.get_romawi($month_now).'/'.$year_now;
+                                                $id_invoice = $data_product['product_code'].'/'.'01/'.get_romawi($month_now).'/'.$year_now;
                                             } else {
                                                 if ($number <= 9) {
                                                     $invoice_number = '0'.$number;
-                                                    $id_invoice = $data_product['product_code'].'-0'.$number.'/INV/GH-STN/'.get_romawi($month_now).'/'.$year_now;
+                                                    $id_invoice = $data_product['product_code'].'/0'.$number.'/'.get_romawi($month_now).'/'.$year_now;
                                                 } else {
                                                     $invoice_number = $number;
-                                                    $id_invoice = $data['product_code'].'-'.$number.'/INV/GH-STN/'.get_romawi($month_now).'/'.$year_now;
+                                                    $id_invoice = $data['product_code'].'/'.$number.'/'.get_romawi($month_now).'/'.$year_now;
                                                 }
                                             }
 
@@ -60,9 +60,6 @@
                                             $filename = str_replace(['-','/'], ['',''],$id_invoice).'.pdf';
                                             $dir = strtoupper(date('F_Y', strtotime($_POST['invoice_date'])));
                                             $exist_dir = "file/".$dir;
-                                            if (!file_exists($exist_dir)) {
-                                                mkdir("file/".$dir, 0777);
-                                            }
 
                                             $invoice_file   = $exist_dir.'/'.$filename;
                                             $total          = intval($_POST['total_amount']);
@@ -79,6 +76,8 @@
                                                         customer_id             = '$customer',
                                                         product_id              = '$product',
                                                         invoice_number          = '$invoice_number',
+                                                        invoice_log_status      = 'T',
+                                                        invoice_log_filled      = 'T',
                                                         invoice_contract_no     = NULLIF('$contract', ''),
                                                         invoice_record_no       = NULLIF('$record', ''),
                                                         invoice_date            = NULLIF('$invoice_date', ''),
@@ -95,15 +94,8 @@
                                                         created_at              = '$created_at',
                                                         updated_at              = '$updated_at'") or die (mysqli_error($conn));
                                             
-                                            $html = file_get_contents(url_file()."/gh.php?id=$id_invoice");
-                                            $dompdf->loadHtml($html);
-                                            $dompdf->setPaper('A4', 'portrait');
-                                            $dompdf->render();
-                                            $output = $dompdf->output();
-                                            $file_put = file_put_contents($exist_dir.'/'.$filename, $output);   
-                                            
-                                            if ($insert && $file_put){
-                                                echo    '<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Berhasil!</strong> Data telah tersimpan.'.
+                                            if ($insert){
+                                                echo    '<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Success!</strong> Data has been saved.'.
                                                             '<button class="close" type="button" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>'.
                                                         '</div>';
                                                 echo "<meta http-equiv='refresh' content='2;

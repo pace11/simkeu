@@ -35,23 +35,23 @@
                                 <div class="row">
                                     <div class="col-md-8">
                                         <div class="form-group">
-                                            <label for="name">Nama Reg</label>
-                                            <input class="form-control" type="text" placeholder="Nama Reg ..." name="reg_name" autocomplete="OFF" value="<?= $data['reg_name'] ?>" required>
+                                            <label for="name">Name Reg</label>
+                                            <input class="form-control" type="text" placeholder="Name Reg ..." name="reg_name" autocomplete="OFF" value="<?= $data['reg_name'] ?>" required>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-8">
                                         <div class="form-group">
-                                            <label for="name">Deskripsi Reg</label>
-                                            <textarea class="form-control" name="reg_desc" rows="3" placeholder="Deskripsi Reg ..."><?= $data['reg_description'] ?></textarea>
+                                            <label for="name">Description Reg</label>
+                                            <textarea class="form-control" name="reg_desc" rows="3" placeholder="Description Reg ..."><?= $data['reg_description'] ?></textarea>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <input type="submit" name="submit" class="btn btn-primary" value="Simpan">
-                                <a href="?page=reg" class="btn btn-secondary">Kembali</a>
+                                <input type="submit" name="submit" class="btn btn-primary" value="Save">
+                                <a href="?page=reg" class="btn btn-secondary">Back</a>
                             </div>
                         </form>
                     </div>

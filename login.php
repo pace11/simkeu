@@ -1,13 +1,14 @@
 <?php 
   include 'config/connection.php';
   include 'config/global_vars.php';
+  date_default_timezone_set('Asia/Jakarta');
 
   if (isset($_POST['submit'])) {
     $u = $_POST['username'];
     $p = encrypt_decrypt('encrypt', $_POST['password']);
     $date_now = date('Y-m-d H:i:s');
     
-    $cek_login = mysqli_query($conn, "SELECT * FROM auth_login WHERE BINARY username='$u' AND password='$p'");
+    $cek_login = mysqli_query($conn, "SELECT * FROM auth_login WHERE BINARY username='$u' AND password='$p' AND deleted_at IS NULL AND auth_login_active IS NULL");
     $data = mysqli_fetch_array($cek_login);
     $hitung = mysqli_num_rows($cek_login);
     $token_gen = encrypt_decrypt('encrypt', $data['id']);
@@ -86,7 +87,7 @@
                         $p = encrypt_decrypt('encrypt', $_POST['password']);
                         $date_now = date('Y-m-d H:i:s');
 
-                        $cek_login = mysqli_query($conn, "SELECT * FROM auth_login WHERE BINARY username='$u' AND password='$p'");
+                        $cek_login = mysqli_query($conn, "SELECT * FROM auth_login WHERE BINARY username='$u' AND password='$p' AND deleted_at IS NULL AND auth_login_active IS NULL");
                         $data = mysqli_fetch_array($cek_login);
                         $hitung = mysqli_num_rows($cek_login);
 

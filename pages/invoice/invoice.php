@@ -72,7 +72,7 @@
                                                     <?php if ($data['auth_login_id'] == get_user_login(0) && get_user_login('role_login_id') != 5 && $data['invoice_log_filled'] == 'T') { ?>
                                                         <a href="?page=invoiceedit1&id=<?= $data[0] ?>" class="btn btn-info btn-sm mb-1"><i class="fa fa-edit"></i> edit</a>
                                                     <?php } ?>
-                                                    <a href="?page=invoiceprint&id=<?= $data[0] ?>&date=<?= $data['invoice_date'] ?>&pid=<?= $data['product_id'] ?>&type=T" class="btn btn-success btn-sm mb-1"><i class="fa fa-print"></i> print</a>
+                                                    <a href="?page=invoiceprint&id=<?= $data[0] ?>&type=T" class="btn btn-success btn-sm mb-1"><i class="fa fa-print"></i> print</a>
                                                 </td>
                                             </tr>
                                         <?php $no++; } ?>
@@ -122,7 +122,7 @@
                                                     <?php if ($data['auth_login_id'] == get_user_login(0) && get_user_login('role_login_id') != 5 && $data['invoice_log_filled'] == 'T') { ?>
                                                         <a href="?page=invoiceedit2&id=<?= $data[0] ?>" class="btn btn-info btn-sm mb-1"><i class="fa fa-edit"></i> edit</a>
                                                     <?php } ?>
-                                                    <a href="?page=invoiceprint&id=<?= $data[0] ?>&date=<?= $data['invoice_date'] ?>&pid=<?= $data['product_id'] ?>&type=T" class="btn btn-success btn-sm mb-1"><i class="fa fa-print"></i> print</a>
+                                                    <a href="?page=invoiceprint&id=<?= $data[0] ?>&type=T" class="btn btn-success btn-sm mb-1"><i class="fa fa-print"></i> print</a>
                                                 </td>
                                             </tr>
                                         <?php $no++; } ?>
@@ -172,7 +172,7 @@
                                                     <?php if ($data['auth_login_id'] == get_user_login(0) && get_user_login('role_login_id') != 5 && $data['invoice_log_filled'] == 'T') { ?>
                                                         <a href="?page=invoiceedit3&id=<?= $data[0] ?>" class="btn btn-info btn-sm mb-1"><i class="fa fa-edit"></i> edit</a>
                                                     <?php } ?>
-                                                    <a href="?page=invoiceprint&id=<?= $data[0] ?>&date=<?= $data['invoice_date'] ?>&pid=<?= $data['product_id'] ?>&type=T" class="btn btn-success btn-sm mb-1"><i class="fa fa-print"></i> print</a>
+                                                    <a href="?page=invoiceprint&id=<?= $data[0] ?>&type=T" class="btn btn-success btn-sm mb-1"><i class="fa fa-print"></i> print</a>
                                                 </td>
                                             </tr>
                                         <?php $no++; } ?>
@@ -222,7 +222,7 @@
                                                     <?php if ($data['auth_login_id'] == get_user_login(0) && get_user_login('role_login_id') != 5 && $data['invoice_log_filled'] == 'T') { ?>
                                                         <a href="?page=invoiceedit4&id=<?= $data[0] ?>" class="btn btn-info btn-sm mb-1"><i class="fa fa-edit"></i> edit</a>
                                                     <?php } ?>
-                                                    <a href="?page=invoiceprint&id=<?= $data[0] ?>&date=<?= $data['invoice_date'] ?>&pid=<?= $data['product_id'] ?>&type=T" class="btn btn-success btn-sm mb-1"><i class="fa fa-print"></i> print</a>
+                                                    <a href="?page=invoiceprint&id=<?= $data[0] ?>&type=T" class="btn btn-success btn-sm mb-1"><i class="fa fa-print"></i> print</a>
                                                 </td>
                                             </tr>
                                         <?php $no++; } ?>

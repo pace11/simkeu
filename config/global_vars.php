@@ -233,17 +233,16 @@ function date_time($param) {
 function history_arsip_invoice($param) {
     include "connection.php";
     $tmp = "";
-    $q = mysqli_query($conn, "SELECT * FROM invoices WHERE id='$param'");
-    $data = mysqli_fetch_array($q);
-    $count = mysqli_num_rows($q);
+    $data = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM invoices WHERE id='$param'"));
     if ($data['invoice_number_rev']) {
         $get = json_decode($data['invoice_log_data'], true);
         $tmp = '<ol style="padding: 0;margin: 0 0 0 15px;">';
-        $tmp .='<li><p style="padding:0;margin:0;">REV.'.$data['id'].' - '.date('d/M/Y', strtotime($data['updated_at'])).'<a href="?page=invoiceprint&id='.$data['id'].'&date='.$data['invoice_date'].'&pid='.$data['product_id'].'&type=L" class="btn btn-success btn-sm m-1"><i class="fa fa-print"></i> print</a></p></li>';
+        $tmp .='<li><p style="padding:0;margin:0;">'.$data['id'].' - '.date('d/M/Y', strtotime($get['updated_at'])).'<a href="?page=invoiceprint&id='.$data['id'].'&type=L" class="btn btn-primary btn-sm m-1"><i class="fa fa-print"></i> print</a></p></li>';
+        $tmp .='<li><p style="padding:0;margin:0;">REV.'.$data['id'].' - '.date('d/M/Y', strtotime($data['updated_at'])).' <span class="badge badge-danger">new <i class="fa fa-star"></i></span> <a href="?page=invoiceprint&id='.$data['id'].'&type=T" class="btn btn-primary btn-sm m-1"><i class="fa fa-print"></i> print</a></p></li>';
         $tmp .= '</ol>';
     } else {
         $tmp = '<ol style="padding: 0;margin: 0 0 0 15px;">';
-        $tmp .='<li><p style="padding:0;margin:0;">'.$data['id'].' - '.date('d/M/Y', strtotime($data['updated_at'])).'<a href="?page=invoiceprint&id='.$data['id'].'&date='.$data['invoice_date'].'&pid='.$data['product_id'].'&type=T" class="btn btn-success btn-sm m-1"><i class="fa fa-print"></i> print</a></p></li>';
+        $tmp .='<li><p style="padding:0;margin:0;">'.$data['id'].' - '.date('d/M/Y', strtotime($data['updated_at'])).'<a href="?page=invoiceprint&id='.$data['id'].'&type=T"><i class="fa fa-print"></i> print</a></p></li>';
         $tmp .= '</ol>';
     }
     return $tmp;

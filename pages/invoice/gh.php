@@ -24,18 +24,13 @@
 
 <body>
     <?php
-        if ($_GET['type'] == 'T') { 
-            $get = mysqli_query($conn, "SELECT * FROM invoices 
-                                        JOIN customers ON invoices.customer_id=customers.id
-                                        JOIN products ON invoices.product_id=products.id
-                                        JOIN auth_login ON invoices.auth_login_id=auth_login.id
-                                        JOIN reg ON invoices.reg_id=reg.id
-                                        WHERE invoices.id='$_GET[id]'") or die (mysqli_error($conn));
-            $data = mysqli_fetch_array($get);
-        } else {
-            $get = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM invoices WHERE id='$_GET[id]'"));
-            $data = json_decode($get['invoice_log_data'], true);
-        }
+        $get = mysqli_query($conn, "SELECT * FROM invoices 
+                                    JOIN customers ON invoices.customer_id=customers.id
+                                    JOIN products ON invoices.product_id=products.id
+                                    JOIN auth_login ON invoices.auth_login_id=auth_login.id
+                                    JOIN reg ON invoices.reg_id=reg.id
+                                    WHERE invoices.id='$_GET[id]'") or die (mysqli_error($conn));
+        $data = mysqli_fetch_array($get);
     ?>
     <div style="width:100%;height: auto;box-sizing: border-box;">
         <div style="text-align: right;height: 100px;">
